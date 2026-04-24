@@ -1,722 +1,250 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="light">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Birthday Hunt</title>
-  <meta name="description" content="Eine interaktive Geburtstags-Website-Hunt mit 10 anspruchsvollen Rätseln, versteckten Hinweisen und einer Überraschung am Ende." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Geburtstagsrätsel</title>
   <style>
-    :root, [data-theme="light"] {
-      --bg: #f6f2eb;
-      --surface: #fffaf4;
-      --surface-2: #efe8df;
-      --text: #241f1b;
-      --muted: #756d64;
-      --border: #d8cec3;
-      --primary: #175e58;
-      --primary-soft: #dce9e7;
-      --accent: #a86a38;
-      --success: #2c7a48;
-      --danger: #a43d3d;
-      --radius: 20px;
-      --radius-sm: 14px;
-      --shadow: 0 18px 40px rgba(36,31,27,0.10);
-      --font-display: "Cormorant Garamond", serif;
-      --font-body: "Inter", sans-serif;
+    * {
+      box-sizing: border-box;
     }
 
-    [data-theme="dark"] {
-      --bg: #151311;
-      --surface: #211d1a;
-      --surface-2: #2b2521;
-      --text: #f3ede6;
-      --muted: #bfb4a8;
-      --border: #3e3630;
-      --primary: #7fc4ba;
-      --primary-soft: #243633;
-      --accent: #d59b6b;
-      --success: #7dd49d;
-      --danger: #e17a7a;
-      --shadow: 0 18px 40px rgba(0,0,0,0.35);
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: var(--font-body);
-      color: var(--text);
-      background:
-        radial-gradient(circle at top right, rgba(168,106,56,.12), transparent 25%),
-        linear-gradient(180deg, var(--bg), var(--surface-2));
-      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f6f4ef;
+      color: #222;
       line-height: 1.6;
     }
 
-    .container {
-      width: min(1120px, calc(100% - 24px));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: color-mix(in srgb, var(--bg) 86%, transparent);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .topbar-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 0;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      letter-spacing: .02em;
-    }
-
-    .brand-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
+    header {
+      background: #7d2e2e;
       color: white;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      box-shadow: var(--shadow);
+      padding: 40px 20px;
+      text-align: center;
     }
 
-    .theme-toggle {
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      padding: 10px 14px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: 700;
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 2.2rem;
     }
 
-    .hero {
-      padding: 56px 0 28px;
-    }
-
-    .hero-card, .panel {
-      background: color-mix(in srgb, var(--surface) 92%, white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-card {
-      padding: clamp(24px, 4vw, 42px);
-    }
-
-    .hero-grid {
-      display: grid;
-      gap: 22px;
-    }
-
-    .eyebrow, .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: var(--primary-soft);
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-
-    h1, h2, h3 {
-      font-family: var(--font-display);
-      line-height: 1.08;
+    header p {
       margin: 0;
+      font-size: 1.1rem;
     }
 
-    h1 {
-      font-size: clamp(42px, 7vw, 78px);
-      max-width: 10ch;
-      margin-top: 14px;
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
     }
 
-    .hero-copy {
-      max-width: 62ch;
-      color: var(--muted);
-      margin-top: 14px;
-    }
-
-    .hero-info {
-      margin-top: 24px;
-      display: grid;
-      gap: 14px;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    }
-
-    .mini {
-      border: 1px solid var(--border);
+    .raetsel {
+      background: white;
       border-radius: 16px;
-      background: var(--surface);
-      padding: 16px;
-    }
-
-    .mini strong {
-      display: block;
-      font-size: 26px;
-      font-family: var(--font-display);
-    }
-
-    .layout {
-      display: grid;
-      gap: 22px;
-      padding-bottom: 70px;
-    }
-
-    .panel {
       padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     }
 
-    .sidebar {
+    .raetsel h2 {
+      margin-top: 0;
+      color: #7d2e2e;
+    }
+
+    .raetsel p {
+      margin-bottom: 18px;
+    }
+
+    .bilder-grid {
       display: grid;
-      gap: 22px;
-      align-self: start;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
     }
 
-    .progressbar {
-      width: 100%;
-      height: 14px;
-      border-radius: 999px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      margin: 14px 0 10px;
-    }
-
-    .progressfill {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      transition: width .35s ease;
-    }
-
-    .muted {
-      color: var(--muted);
-    }
-
-    .riddle-list {
-      display: grid;
-      gap: 18px;
-      margin-top: 22px;
-    }
-
-    .riddle {
-      display: none;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: var(--surface);
-      padding: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .riddle.active {
-      display: block;
-    }
-
-    .riddle.done {
-      background: color-mix(in srgb, var(--success) 8%, var(--surface));
-      border-color: color-mix(in srgb, var(--success) 30%, var(--border));
-    }
-
-    .riddle h3 {
-      font-size: clamp(28px, 4vw, 36px);
-      margin-top: 10px;
-    }
-
-    .riddle p {
-      color: var(--muted);
-      margin: 10px 0 18px;
-      max-width: 70ch;
-    }
-
-    .hint {
-      display: none;
-      background: var(--primary-soft);
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-top: 12px;
-    }
-
-    .hint.show {
-      display: block;
-    }
-
-    .answer-row {
-      display: grid;
-      gap: 10px;
-    }
-
-    .inline-note {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    input[type="text"] {
-      width: 100%;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      padding: 15px 16px;
-      border-radius: 14px;
-      outline: none;
-      font-size: 16px;
-    }
-
-    input[type="text"]:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 18%, transparent);
-    }
-
-    .buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      border: 0;
-      border-radius: 999px;
-      padding: 13px 18px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform .15s ease, opacity .15s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-
-    .btn-secondary {
-      background: var(--surface-2);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .feedback {
-      min-height: 22px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .feedback.ok { color: var(--success); }
-    .feedback.error { color: var(--danger); }
-
-    .hidden-clue {
-      user-select: text;
-      color: transparent;
-      text-shadow: none;
-      background: transparent;
-      transition: color .2s ease;
-      font-weight: 700;
-    }
-
-    .hidden-clue::selection {
-      color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 16%, white);
-    }
-
-    .trap-button {
-      margin-top: 8px;
-      border: 1px dashed var(--border);
-      background: transparent;
-      color: var(--muted);
-      padding: 10px 14px;
+    .bildkarte {
+      background: #faf8f3;
       border-radius: 12px;
-      cursor: pointer;
+      overflow: hidden;
+      border: 1px solid #e5dfd3;
     }
 
-    .trap-output {
-      margin-top: 10px;
-      font-size: 14px;
-      color: var(--accent);
-      font-weight: 700;
-      min-height: 22px;
-    }
-
-    .coordinate-box {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      background: var(--surface-2);
-      border-radius: 14px;
-      padding: 12px;
-      border: 1px solid var(--border);
-      margin-top: 8px;
-    }
-
-    .finale {
-      display: none;
-      margin-top: 24px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      background: linear-gradient(135deg,
-        color-mix(in srgb, var(--primary) 10%, var(--surface)),
-        color-mix(in srgb, var(--accent) 16%, var(--surface))
-      );
-    }
-
-    .finale.show {
+    .bildkarte img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
       display: block;
-      animation: rise .45s ease;
+      background: #ddd;
     }
 
-    .finale ul {
-      margin: 14px 0 0;
-      padding-left: 20px;
+    .bildkarte span {
+      display: block;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      text-align: center;
     }
 
-    .tiny {
-      font-size: 12px;
-      color: var(--muted);
+    footer {
+      text-align: center;
+      padding: 30px 20px 50px;
+      color: #666;
     }
 
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (min-width: 980px) {
-      .hero-grid {
-        grid-template-columns: 1.25fr .85fr;
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8rem;
       }
 
-      .layout {
-        grid-template-columns: .82fr 1.45fr;
-        align-items: start;
-      }
-
-      .sidebar-stick {
-        position: sticky;
-        top: 92px;
+      .bildkarte img {
+        height: 180px;
       }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M12 3L14.6 8.4L20.5 9.2L16.2 13.4L17.3 19.2L12 16.3L6.7 19.2L7.8 13.4L3.5 9.2L9.4 8.4L12 3Z" fill="currentColor"></path>
-          </svg>
-        </div>
-        <div>Birthday Hunt</div>
-      </div>
-
-      <button class="theme-toggle" type="button" id="themeToggle" aria-label="Farbschema wechseln">🌙</button>
-    </div>
+  <header>
+    <h1>Geburtstagsrätsel</h1>
+    <p>10 Rätsel mit vielen Bildern und einer Überraschung</p>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-card">
-          <span class="eyebrow">For your birthday</span>
-          <h1>10 Hinweise bis zur echten Überraschung</h1>
-          <p class="hero-copy">
-            Dies ist keine normale Rätselseite. Manche Antworten sind codiert, manche versteckt,
-            manche müssen auf einer Webseite erkannt werden, manche aus mehreren Hinweisen kombiniert werden.
-            Nur wer genau hinschaut, kommt ans Ziel.
-          </p>
-
-          <div class="hero-info">
-            <div class="mini"><strong>10</strong> Aufgaben mit steigender Schwierigkeit</div>
-            <div class="mini"><strong>Web</strong> Hinweise, Codes, Logik und Meta-Rätsel</div>
-            <div class="mini"><strong>1</strong> finale Geburtstags-Überraschung</div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <span class="badge">Regeln</span>
-          <h2 style="margin-top:14px; font-size:38px;">Denk wie bei einer Hunt</h2>
-          <p class="muted">
-            Nicht alles ist direkt sichtbar. Achte auf Format, Wortwahl, Buttons, Quelltext,
-            auffällige Begriffe, versteckte Hinweise, Wikipedia-artige Antworten und Kombinationen aus früheren Lösungen.
-          </p>
-          <ul class="muted" style="padding-left:18px;">
-            <li>Groß-/Kleinschreibung ist egal.</li>
-            <li>Bei manchen Rätseln ist ein Format vorgegeben.</li>
-            <li>Einzelne Hinweise sind absichtlich im Code versteckt.</li>
-            <li>Nicht jedes Rätsel ist nur eine Verschlüsselung.</li>
-          </ul>
-        </div>
+    <section class="raetsel">
+      <h2>Rätsel 1</h2>
+      <p>Schau dir die Bilder genau an und finde heraus, was sie gemeinsam haben.</p>
+      <div class="bilder-grid">
+        <div class="bildkarte"><img src="Bilder/1.jpeg" alt="Bild 1"><span>Bild 1</span></div>
+        <div class="bildkarte"><img src="Bilder/2.jpeg" alt="Bild 2"><span>Bild 2</span></div>
+        <div class="bildkarte"><img src="Bilder/3.jpeg" alt="Bild 3"><span>Bild 3</span></div>
+        <div class="bildkarte"><img src="Bilder/4.jpeg" alt="Bild 4"><span>Bild 4</span></div>
+        <div class="bildkarte"><img src="Bilder/5.jpeg" alt="Bild 5"><span>Bild 5</span></div>
+        <div class="bildkarte"><img src="Bilder/6.jpeg" alt="Bild 6"><span>Bild 6</span></div>
       </div>
     </section>
 
-    <section class="container layout">
-      <aside class="sidebar sidebar-stick">
-        <div class="panel">
-          <span class="badge">Fortschritt</span>
-          <h2 style="margin-top:12px; font-size:34px;">Auf dem Weg</h2>
-          <div class="progressbar">
-            <div class="progressfill" id="progressFill"></div>
-          </div>
-          <div id="progressText">0 von 10 Rätseln gelöst</div>
-          <p class="muted">Wenn du feststeckst, nutze Hinweise, kombiniere frühere Antworten oder denke an das Web selbst als Teil des Rätsels.</p>
-        </div>
+    <section class="raetsel">
+      <h2>Rätsel 2</h2>
+      <p>Diese Bildgruppe gehört zum zweiten Rätsel. Achte auf kleine Details.</p>
+      <div class="bilder-grid">
+        <div class="bildkarte"><img src="Bilder/7.jpeg" alt="Bild 7"><span>Bild 7</span></div>
+        <div class="bildkarte"><img src="Bilder/8.jpeg" alt="Bild 8"><span>Bild 8</span></div>
+        <div class="bildkarte"><img src="Bilder/9.jpeg" alt="Bild 9"><span>Bild 9</span></div>
+        <div class="bildkarte"><img src="Bilder/10.jpeg" alt="Bild 10"><span>Bild 10</span></div>
+        <div class="bildkarte"><img src="Bilder/11.jpeg" alt="Bild 11"><span>Bild 11</span></div>
+        <div class="bildkarte"><img src="Bilder/12.jpeg" alt="Bild 12"><span>Bild 12</span></div>
+      </div>
+    </section>
 
-        <div class="panel">
-          <span class="badge">Wichtig</span>
-          <p class="muted" style="margin-top:12px;">
-            Manche Antworten sind z.B.:
-          </p>
-          <ul class="muted" style="padding-left:18px;">
-            <li>ein normales Wort</li>
-            <li>ein URL-artiger String</li>
-            <li>ein Wikipedia-Seitentitel</li>
-            <li>eine Koordinate im Format X,Y</li>
-            <li>ein Meta-Code aus mehreren Lösungen</li>
-          </ul>
-        </div>
-      </aside>
+    <section class="raetsel">
+      <h2>Rätsel 3</h2>
+      <p>Hier findest du die nächsten Hinweise. Vielleicht ergibt sich daraus schon ein Muster.</p>
+      <div class="bilder-grid">
+        <div class="bildkarte"><img src="Bilder/13.jpeg" alt="Bild 13"><span>Bild 13</span></div>
+        <div class="bildkarte"><img src="Bilder/14.jpeg" alt="Bild 14"><span>Bild 14</span></div>
+        <div class="bildkarte"><img src="Bilder/15.jpeg" alt="Bild 15"><span>Bild 15</span></div>
+        <div class="bildkarte"><img src="Bilder/16.jpeg" alt="Bild 16"><span>Bild 16</span></div>
+        <div class="bildkarte"><img src="Bilder/17.jpeg" alt="Bild 17"><span>Bild 17</span></div>
+        <div class="bildkarte"><img src="Bilder/18.jpeg" alt="Bild 18"><span>Bild 18</span></div>
+      </div>
+    </section>
 
-      <section class="panel">
-        <span class="badge">Hunt</span>
-        <h2 style="margin-top:12px; font-size:46px;">Die Rätselstrecke</h2>
+    <section class="raetsel">
+      <h2>Rätsel 4</h2>
+      <p>Diese Bilder helfen dir beim vierten Rätsel. Vergleiche Farben, Formen oder Orte.</p>
+      <div class="bilder-grid">
+        <div class="bildkarte"><img src="Bilder/19.jpeg" alt="Bild 19"><span>Bild 19</span></div>
+        <div class="bildkarte"><img src="Bilder/20.jpeg" alt="Bild 20"><span>Bild 20</span></div>
+        <div class="bildkarte"><img src="Bilder/21.jpeg" alt="Bild 21"><span>Bild 21</span></div>
+        <div class="bildkarte"><img src="Bilder/22.jpeg" alt="Bild 22"><span>Bild 22</span></div>
+        <div class="bildkarte"><img src="Bilder/23.jpeg" alt="Bild 23"><span>Bild 23</span></div>
+        <div class="bildkarte"><img src="Bilder/24.jpeg" alt="Bild 24"><span>Bild 24</span></div>
+      </div>
+    </section>
 
-        <div class="riddle-list" id="riddleList"></div>
+    <section class="raetsel">
+      <h2>Rätsel 5</h2>
+      <p>Nun wird es spannender. Nutze die Bilder als Hinweise für die richtige Lösung.</p>
+      <div class="bilder-grid">
+        <div class="bildkarte"><img src="Bilder/25.jpeg" alt="Bild 25"><span>Bild 25</span></div>
+        <div class="bildkarte"><img src="Bilder/26.jpeg" alt="Bild 26"><span>Bild 26</span></div>
+        <div class="bildkarte"><img src="Bilder/27.jpeg" alt="Bild 27"><span>Bild 27</span></div>
+        <div class="bildkarte"><img src="Bilder/28.jpeg" alt="Bild 28"><span>Bild 28</span></div>
+        <div class="bildkarte"><img src="Bilder/29.jpeg" alt="Bild 29"><span>Bild 29</span></div>
+        <div class="bildkarte"><img src="Bilder/30.jpeg" alt="Bild 30"><span>Bild 30</span></div>
+      </div>
+    </section>
 
-        <section class="finale" id="finale">
-          <span class="badge">Finale</span>
-          <h2 style="margin-top:14px; font-size:46px;">Du hast alles gelöst.</h2>
-          <p>
-            Deine Belohnung ist kein Gegenstand, sondern gemeinsame Zeit:
-            ein ganzer Tag mit der Familie — draussen, mit schöner Aussicht und feinem Essen.
-          </p>
-          <ul>
-            <li>gemeinsamer Start in den Tag</li>
-            <li>Outdoor-Erlebnis oder kleine Wanderung</li>
-            <li>schöner Ort mit Aussicht</li>
-            <li>gemeinsames Essen</li>
-            <li>Zeit für Erinnerungen und Überraschungen</li>
-          </ul>
-          <p style="margin-top:14px;">
-            <strong>Hier kannst du später euren echten Plan einsetzen:</strong><br>
-            Datum, Ort, Uhrzeit und letzte persönliche Nachricht.
-          </p>
-        </section>
-      </section>
+    <section class="raetsel">
+      <h2>Rätsel 6</h2>
+      <p>Im sechsten Rätsel warten weitere Bilder, die zusammen einen Hinweis ergeben.</p>
+      <div class="bilder-grid">
+        <div class="bildkarte"><img src="Bilder/31.jpeg" alt="Bild 31"><span>Bild 31</span></div>
+        <div class="bildkarte"><img src="Bilder/32.jpeg" alt="Bild 32"><span>Bild 32</span></div>
+        <div class="bildkarte"><img src="Bilder/33.jpeg" alt="Bild 33"><span>Bild 33</span></div>
+        <div class="bildkarte"><img src="Bilder/34.jpeg" alt="Bild 34"><span>Bild 34</span></div>
+        <div class="bildkarte"><img src="Bilder/35.jpeg" alt="Bild 35"><span>Bild 35</span></div>
+        <div class="bildkarte"><img src="Bilder/36.jpeg" alt="Bild 36"><span>Bild 36</span></div>
+      </div>
+    </section>
+
+    <section class="raetsel">
+      <h2>Rätsel 7</h2>
+      <p>Diese Runde enthält neue Bildkombinationen. Vielleicht erkennst du jetzt den Zusammenhang.</p>
+      <div class="bilder-grid">
+        <div class="bildkarte"><img src="Bilder/37.jpeg" alt="Bild 37"><span>Bild 37</span></div>
+        <div class="bildkarte"><img src="Bilder/38.jpeg" alt="Bild 38"><span>Bild 38</span></div>
+        <div class="bildkarte"><img src="Bilder/39.jpeg" alt="Bild 39"><span>Bild 39</span></div>
+        <div class="bildkarte"><img src="Bilder/40.jpeg" alt="Bild 40"><span>Bild 40</span></div>
+        <div class="bildkarte"><img src="Bilder/41.jpeg" alt="Bild 41"><span>Bild 41</span></div>
+        <div class="bildkarte"><img src="Bilder/42.jpeg" alt="Bild 42"><span>Bild 42</span></div>
+      </div>
+    </section>
+
+    <section class="raetsel">
+      <h2>Rätsel 8</h2>
+      <p>Hier kommen weitere Bilder, die dich dem Ziel näherbringen sollen.</p>
+      <div class="bilder-grid">
+        <div class="bildkarte"><img src="Bilder/43.jpeg" alt="Bild 43"><span>Bild 43</span></div>
+        <div class="bildkarte"><img src="Bilder/44.jpeg" alt="Bild 44"><span>Bild 44</span></div>
+        <div class="bildkarte"><img src="Bilder/45.jpeg" alt="Bild 45"><span>Bild 45</span></div>
+        <div class="bildkarte"><img src="Bilder/46.jpeg" alt="Bild 46"><span>Bild 46</span></div>
+        <div class="bildkarte"><img src="Bilder/47.jpeg" alt="Bild 47"><span>Bild 47</span></div>
+        <div class="bildkarte"><img src="Bilder/48.jpeg" alt="Bild 48"><span>Bild 48</span></div>
+      </div>
+    </section>
+
+    <section class="raetsel">
+      <h2>Rätsel 9</h2>
+      <p>Fast geschafft. Diese Bilder bilden den vorletzten Hinweisblock.</p>
+      <div class="bilder-grid">
+        <div class="bildkarte"><img src="Bilder/49.jpeg" alt="Bild 49"><span>Bild 49</span></div>
+        <div class="bildkarte"><img src="Bilder/50.jpeg" alt="Bild 50"><span>Bild 50</span></div>
+        <div class="bildkarte"><img src="Bilder/51.jpeg" alt="Bild 51"><span>Bild 51</span></div>
+        <div class="bildkarte"><img src="Bilder/52.jpeg" alt="Bild 52"><span>Bild 52</span></div>
+        <div class="bildkarte"><img src="Bilder/53.jpeg" alt="Bild 53"><span>Bild 53</span></div>
+        <div class="bildkarte"><img src="Bilder/54.jpeg" alt="Bild 54"><span>Bild 54</span></div>
+      </div>
+    </section>
+
+    <section class="raetsel">
+      <h2>Rätsel 10</h2>
+      <p>Das letzte Rätsel enthält die restlichen Bilder bis 63 als finalen Abschnitt.</p>
+      <div class="bilder-grid">
+        <div class="bildkarte"><img src="Bilder/55.jpeg" alt="Bild 55"><span>Bild 55</span></div>
+        <div class="bildkarte"><img src="Bilder/56.jpeg" alt="Bild 56"><span>Bild 56</span></div>
+        <div class="bildkarte"><img src="Bilder/57.jpeg" alt="Bild 57"><span>Bild 57</span></div>
+        <div class="bildkarte"><img src="Bilder/58.jpeg" alt="Bild 58"><span>Bild 58</span></div>
+        <div class="bildkarte"><img src="Bilder/59.jpeg" alt="Bild 59"><span>Bild 59</span></div>
+        <div class="bildkarte"><img src="Bilder/60.jpeg" alt="Bild 60"><span>Bild 60</span></div>
+        <div class="bildkarte"><img src="Bilder/61.jpeg" alt="Bild 61"><span>Bild 61</span></div>
+        <div class="bildkarte"><img src="Bilder/62.jpeg" alt="Bild 62"><span>Bild 62</span></div>
+        <div class="bildkarte"><img src="Bilder/63.jpeg" alt="Bild 63"><span>Bild 63</span></div>
+      </div>
     </section>
   </main>
 
-  <script>
-    const riddles = [
-      {
-        title: 'Rätsel 1 — Der Einstieg',
-        question: 'Entschlüssele: 6-1-13-9-12-9-5',
-        answer: ['familie'],
-        hint: 'A=1, B=2, C=3 ...'
-      },
-      {
-        title: 'Rätsel 2 — Wikipedia-Stil',
-        question: 'Du suchst keinen Satz, sondern etwas, das wie ein Wikipedia-Artikeltitel aussieht. Hinweis: "höchster Berg der Schweiz". Gib nur den Artikelnamen ein, ohne Klammern.',
-        answer: ['dufourspitze'],
-        hint: 'Wikipedia-Titel sind oft nur der reine Name.'
-      },
-      {
-        title: 'Rätsel 3 — Morse',
-        question: 'Entschlüssele den Morse-Code: .- .-.. .--. . -.',
-        answer: ['alpen'],
-        hint: 'Punkte und Striche ergeben Buchstaben.'
-      },
-      {
-        title: 'Rätsel 4 — Im Text versteckt',
-        question: 'Die Lösung ist im folgenden Satz verborgen: "VieLEicht komMst dU erst späTer darauf." Gib das versteckte Wort ein.',
-        answer: ['mut'],
-        hint: 'Achte auf ungewöhnliche Großbuchstaben.'
-      },
-      {
-        title: 'Rätsel 5 — Quelltext',
-        question: 'Dieses Rätsel ist nicht auf der Seite sichtbar lösbar. Finde im Seitenquelltext einen HTML-Kommentar mit dem Wort "wikipedia-key". Gib nur den Wert ein.',
-        answer: ['saentis'],
-        hint: 'Seitenquelltext ansehen und nach wikipedia-key suchen.'
-      },
-      {
-        title: 'Rätsel 6 — Koordinate',
-        question: 'Stell dir ein 5x5-Gitter vor. X zählt von links nach rechts, Y von oben nach unten. Der Schatz liegt in Feld 4,2. Gib die Antwort exakt als X,Y ein.',
-        answer: ['4,2'],
-        hint: 'Gesucht ist nur das Koordinatenformat.'
-      },
-      {
-        title: 'Rätsel 7 — Falscher Button',
-        question: 'Nicht jeder Button ist nutzlos. Manche verraten etwas. Klicke auf den scheinbar sinnlosen Button unter diesem Text und lies die Ausgabe.',
-        answer: ['pfad-742'],
-        hint: 'Der Button selbst zeigt dir nicht die Antwort, aber fast.'
-      },
-      {
-        title: 'Rätsel 8 — Meta aus Web und Berg',
-        question: 'Kombiniere die Lösung aus dem Quelltext-Rätsel mit dem Ergebnis aus dem falschen Button. Format: wort-zahl',
-        answer: ['saentis-742'],
-        hint: 'Nimm Wort + Bindestrich + Zahl.'
-      },
-      {
-        title: 'Rätsel 9 — Suche wie in einer Hunt',
-        question: 'Du brauchst einen Begriff, der wie ein Wikipedia- oder URL-Suchbegriff wirkt. Hinweis: "Aussichtspunkt über dem Bodensee in St. Gallen" ist hier nicht exakt, aber das Zielwort meint einfach die gesuchte Sache. Gib nur das naheliegende Kernwort ein.',
-        answer: ['aussicht'],
-        hint: 'Nicht zu kompliziert denken: der Kernbegriff reicht.'
-      },
-      {
-        title: 'Rätsel 10 — Finales Meta',
-        question: 'Nimm die Antworten aus Rätsel 1, 3, 5 und 9. Von jeder nimm den ersten Buchstaben. Hänge danach die Zahl aus Rätsel 7 an. Format: buchstaben-zahl',
-        answer: ['fasa-742'],
-        hint: 'Erste Buchstaben + Bindestrich + Zahl.'
-      }
-    ];
-
-    const riddleList = document.getElementById('riddleList');
-    const progressFill = document.getElementById('progressFill');
-    const progressText = document.getElementById('progressText');
-    const finale = document.getElementById('finale');
-
-    function normalizeText(text) {
-      return text
-        .toLowerCase()
-        .trim()
-        .replace(/ä/g, 'ae')
-        .replace(/ö/g, 'oe')
-        .replace(/ü/g, 'ue')
-        .replace(/ß/g, 'ss')
-        .replace(/\s+/g, ' ');
-    }
-
-    function updateProgress() {
-      const solved = document.querySelectorAll('.riddle.done').length;
-      progressFill.style.width = `${(solved / riddles.length) * 100}%`;
-      progressText.textContent = `${solved} von ${riddles.length} Rätseln gelöst`;
-      if (solved === riddles.length) finale.classList.add('show');
-    }
-
-    function createExtraMarkup(index) {
-      if (index === 3) {
-        return `
-          <div class="inline-note">Tipp: Manchmal versteckt sich die Antwort direkt im Sichtbaren.</div>
-        `;
-      }
-
-      if (index === 6) {
-        return `
-          <button class="trap-button" type="button" data-trap-button>Unsinniger Testbutton</button>
-          <div class="trap-output" data-trap-output></div>
-        `;
-      }
-
-      if (index === 8) {
-        return `
-          <p class="tiny">Randnotiz: <span class="hidden-clue">wiki-artikel</span></p>
-        `;
-      }
-
-      return '';
-    }
-
-    riddles.forEach((riddle, index) => {
-      const article = document.createElement('article');
-      article.className = 'riddle' + (index === 0 ? ' active' : '');
-      article.dataset.index = index;
-
-      article.innerHTML = `
-        <div>
-          <span class="badge">${riddle.title}</span>
-          <h3>${riddle.title}</h3>
-        </div>
-        <p>${riddle.question}</p>
-        ${index === 5 ? `<div class="coordinate-box">X: 1 → 5 &nbsp;&nbsp; Y: 1 → 5</div>` : ''}
-        ${createExtraMarkup(index)}
-        <div class="answer-row">
-          <input type="text" placeholder="Deine Antwort" aria-label="Antwort für ${riddle.title}" />
-          <div class="buttons">
-            <button class="btn btn-primary" type="button">Antwort prüfen</button>
-            <button class="btn btn-secondary" type="button">Hinweis anzeigen</button>
-          </div>
-          <div class="feedback" aria-live="polite"></div>
-          <div class="hint">${riddle.hint}</div>
-        </div>
-      `;
-
-      const input = article.querySelector('input');
-      const [checkBtn, hintBtn] = article.querySelectorAll('.btn');
-      const feedback = article.querySelector('.feedback');
-      const hint = article.querySelector('.hint');
-
-      function checkAnswer() {
-        const value = normalizeText(input.value);
-        const valid = riddle.answer.map(normalizeText).includes(value);
-
-        if (valid) {
-          article.classList.add('done');
-          feedback.textContent = 'Richtig. Das nächste Rätsel ist freigeschaltet.';
-          feedback.className = 'feedback ok';
-          input.disabled = true;
-          checkBtn.disabled = true;
-          hintBtn.disabled = true;
-
-          const next = riddleList.querySelector(`.riddle[data-index="${index + 1}"]`);
-          if (next) next.classList.add('active');
-
-          updateProgress();
-        } else {
-          feedback.textContent = 'Noch nicht richtig. Denk noch einmal anders.';
-          feedback.className = 'feedback error';
-        }
-      }
-
-      checkBtn.addEventListener('click', checkAnswer);
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') checkAnswer();
-      });
-      hintBtn.addEventListener('click', () => {
-        hint.classList.toggle('show');
-      });
-
-      const trapButton = article.querySelector('[data-trap-button]');
-      const trapOutput = article.querySelector('[data-trap-output]');
-      if (trapButton && trapOutput) {
-        trapButton.addEventListener('click', () => {
-          trapOutput.textContent = 'Nicht ganz die Lösung — aber merke dir: 742';
-        });
-      }
-
-      riddleList.appendChild(article);
-    });
-
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-      const html = document.documentElement;
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
-    });
-
-    updateProgress();
-  </script>
-
-  <!-- wikipedia-key: saentis -->
+  <footer>
+    Viel Spaß beim Lösen des Geburtstagsrätsels
+  </footer>
 </body>
 </html>
