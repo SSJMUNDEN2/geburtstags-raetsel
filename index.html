@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geburtstags-Rätsel</title>
+  <meta name="description" content="Eine liebevoll gestaltete Geburtstags-Rätselreise mit 10 Stationen und einer Überraschung am Ende." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem;
+      --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem;
+      --color-bg: #f7f3ee;
+      --color-surface: #fffaf5;
+      --color-surface-2: #f3ede6;
+      --color-border: #ded6cc;
+      --color-text: #2a251f;
+      --color-text-muted: #716a62;
+      --color-primary: #1f6b63;
+      --color-primary-hover: #155149;
+      --color-primary-soft: #dcebe7;
+      --color-accent: #b06d3b;
+      --color-success: #2f7a47;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --shadow-md: 0 10px 30px rgba(42,37,31,0.08);
+      --shadow-lg: 0 18px 45px rgba(42,37,31,0.12);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', Arial, sans-serif;
+    }
+    [data-theme="dark"] {
+      --color-bg: #181614;
+      --color-surface: #221f1b;
+      --color-surface-2: #2a2622;
+      --color-border: #3b352f;
+      --color-text: #f3ece4;
+      --color-text-muted: #c0b6aa;
+      --color-primary: #78b9af;
+      --color-primary-hover: #99d0c8;
+      --color-primary-soft: #243732;
+      --color-accent: #d2a176;
+      --color-success: #7ed09b;
+      --shadow-md: 0 10px 30px rgba(0,0,0,0.25);
+      --shadow-lg: 0 18px 45px rgba(0,0,0,0.35);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; min-height: 100vh; font-family: var(--font-body); font-size: var(--text-base);
+      color: var(--color-text); background:
+      radial-gradient(circle at top right, rgba(176,109,59,0.10), transparent 28%),
+      linear-gradient(180deg, var(--color-bg), var(--color-surface-2));
+      line-height: 1.6;
+    }
+    img, svg { display: block; max-width: 100%; }
+    .container { width: min(960px, calc(100% - 2rem)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .topbar-inner {
+      display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0;
+    }
+    .brand { display: flex; align-items: center; gap: .8rem; font-weight: 700; }
+    .brand-mark {
+      width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+      display: grid; place-items: center; color: white; box-shadow: var(--shadow-md);
+    }
+    .brand-title { font-size: var(--text-sm); letter-spacing: .02em; }
+    .theme-toggle {
+      border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text);
+      border-radius: 999px; padding: .7rem .95rem; cursor: pointer;
+    }
+    .hero { padding: clamp(3rem, 8vw, 6rem) 0 var(--space-12); }
+    .hero-card {
+      background: color-mix(in srgb, var(--color-surface) 90%, white);
+      border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: clamp(1.5rem, 4vw, 3rem);
+      box-shadow: var(--shadow-lg);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem; padding: .45rem .8rem; border-radius: 999px;
+      background: var(--color-primary-soft); color: var(--color-primary); font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    }
+    h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; margin: 0; }
+    h1 { font-size: var(--text-2xl); margin-top: var(--space-4); max-width: 12ch; }
+    .hero p { color: var(--color-text-muted); max-width: 58ch; margin: var(--space-4) 0 0; }
+    .hero-grid { display: grid; gap: var(--space-8); align-items: start; }
+    .meta-grid {
+      display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin-top: var(--space-8);
+    }
+    .meta-card {
+      background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4);
+    }
+    .meta-card strong { display: block; font-size: var(--text-lg); font-family: var(--font-display); }
+    .main-grid { display: grid; gap: var(--space-8); padding-bottom: var(--space-16); }
+    .panel {
+      background: color-mix(in srgb, var(--color-surface) 94%, white); border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl); box-shadow: var(--shadow-md); padding: clamp(1.25rem, 3vw, 2rem);
+    }
+    .progress-wrap { display: grid; gap: var(--space-3); }
+    .progress-bar {
+      width: 100%; height: 14px; background: var(--color-surface-2); border-radius: 999px; overflow: hidden; border: 1px solid var(--color-border);
+    }
+    .progress-fill {
+      height: 100%; width: 0%; background: linear-gradient(90deg, var(--color-primary), var(--color-accent)); transition: width .35s ease;
+    }
+    .riddle-list { display: grid; gap: var(--space-6); margin-top: var(--space-6); }
+    .riddle {
+      border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-surface);
+      padding: var(--space-5); display: none;
+    }
+    .riddle.active { display: block; }
+    .riddle.done { border-color: color-mix(in srgb, var(--color-success) 40%, var(--color-border)); background: color-mix(in srgb, var(--color-success) 9%, var(--color-surface)); }
+    .riddle-top { display: flex; justify-content: space-between; gap: var(--space-4); align-items: start; margin-bottom: var(--space-3); }
+    .badge {
+      display: inline-block; background: var(--color-primary-soft); color: var(--color-primary); border-radius: 999px;
+      padding: .4rem .7rem; font-size: var(--text-xs); font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    }
+    .riddle h3 { font-size: var(--text-xl); margin-bottom: .35rem; }
+    .riddle p { margin: 0 0 var(--space-4); color: var(--color-text-muted); }
+    .answer-row { display: grid; gap: .75rem; }
+    input[type="text"] {
+      width: 100%; padding: .95rem 1rem; border-radius: .9rem; border: 1px solid var(--color-border);
+      background: var(--color-bg); color: var(--color-text); outline: none;
+    }
+    input[type="text"]:focus { border-color: var(--color-primary); box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 18%, transparent); }
+    .btn-row { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: .25rem; }
+    .btn {
+      appearance: none; border: 0; border-radius: 999px; padding: .9rem 1.1rem; font-weight: 700; cursor: pointer;
+      transition: transform .16s ease, background .16s ease, opacity .16s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--color-primary); color: white; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-secondary { background: var(--color-surface-2); color: var(--color-text); border: 1px solid var(--color-border); }
+    .feedback { min-height: 1.4rem; font-size: var(--text-sm); font-weight: 600; }
+    .feedback.ok { color: var(--color-success); }
+    .feedback.error { color: #b23a3a; }
+    .hint { display: none; margin-top: var(--space-3); padding: .8rem 1rem; background: var(--color-primary-soft); border-radius: .85rem; color: var(--color-text); }
+    .hint.show { display: block; }
+    .finale {
+      display: none; margin-top: var(--space-8); padding: clamp(1.25rem, 3vw, 2rem); border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 12%, var(--color-surface)), color-mix(in srgb, var(--color-accent) 18%, var(--color-surface)));
+      border: 1px solid var(--color-border);
+    }
+    .finale.show { display: block; animation: rise .5s ease; }
+    .checklist { margin: var(--space-4) 0 0; padding-left: 1.2rem; }
+    .checklist li { margin-bottom: .45rem; }
+    .footer-note { color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-6); }
+    .mini-card-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); margin-top: var(--space-5); }
+    .mini-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4); }
+    @keyframes rise { from { opacity: 0; transform: translateY(16px);} to { opacity: 1; transform: translateY(0);} }
+    @media (min-width: 900px) {
+      .hero-grid { grid-template-columns: 1.4fr .9fr; }
+      .main-grid { grid-template-columns: .9fr 1.6fr; align-items: start; }
+      .sidebar { position: sticky; top: 5.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3L14.6 8.4L20.5 9.2L16.2 13.4L17.3 19.2L12 16.3L6.7 19.2L7.8 13.4L3.5 9.2L9.4 8.4L12 3Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">Geburtstags-Rätselreise</div>
+        </div>
+      </div>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Farbmodus wechseln">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-card">
+          <span class="eyebrow">Für einen besonderen Tag</span>
+          <h1>10 Rätsel bis zur grossen Überraschung</h1>
+          <p>
+            Löse ein Rätsel nach dem anderen. Jede richtige Antwort bringt dich näher an dein Geschenk.
+            Am Ende wartet ein besonderer Tag mit Familie, Natur, gutem Essen und wunderschöner Aussicht.
+          </p>
+          <div class="meta-grid">
+            <div class="meta-card"><strong>10</strong><span>liebevoll aufgebaute Stationen</span></div>
+            <div class="meta-card"><strong>1</strong><span>grosse Geburtstags-Überraschung</span></div>
+            <div class="meta-card"><strong>100%</strong><span>mit Herz vorbereitet</span></div>
+          </div>
+        </div>
+        <div class="panel">
+          <span class="badge">So funktioniert es</span>
+          <h2 style="margin-top:1rem; font-size:var(--text-xl);">Einfach, spielerisch, persönlich</h2>
+          <div class="mini-card-grid">
+            <div class="mini-card"><strong>1.</strong><br>Jede Antwort öffnet das nächste Rätsel.</div>
+            <div class="mini-card"><strong>2.</strong><br>Wenn du nicht weiterweisst, gibt es einen Hinweis.</div>
+            <div class="mini-card"><strong>3.</strong><br>Nach dem letzten Rätsel erscheint dein Geschenk.</div>
+          </div>
+          <p class="footer-note">Tipp: Gross-/Kleinschreibung ist egal. Umlaute werden ebenfalls berücksichtigt.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container main-grid">
+      <aside class="sidebar">
+        <div class="panel progress-wrap">
+          <span class="badge">Fortschritt</span>
+          <h2 style="font-size:var(--text-xl); margin-top:.8rem;">Dein Weg zur Überraschung</h2>
+          <div class="progress-bar" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+          <div id="progressText">0 von 10 Rätseln gelöst</div>
+          <p style="color:var(--color-text-muted); margin:0;">Passe die Texte, Antworten und die finale Überraschung später ganz einfach an eure Geschichte an.</p>
+        </div>
+      </aside>
+
+      <div class="panel">
+        <span class="badge">Rätsel</span>
+        <h2 style="font-size:var(--text-2xl); margin-top:1rem;">Die Reise beginnt hier</h2>
+        <div class="riddle-list" id="riddleList"></div>
+
+        <section class="finale" id="finale">
+          <span class="badge">Überraschung</span>
+          <h2 style="font-size:var(--text-2xl); margin-top:1rem;">Du hast es geschafft!</h2>
+          <p>
+            Dein Geschenk ist ein ganzer gemeinsamer Tag mit der Familie — mit frischer Luft, schöner Aussicht und feinem Essen.
+          </p>
+          <ul class="checklist">
+            <li>Gemeinsamer Start am Morgen</li>
+            <li>Outdoor-Erlebnis oder kleine Wanderung</li>
+            <li>Mittag- oder Abendessen an einem schönen Ort</li>
+            <li>Zeit für Erinnerungen, Fotos und Zusammensein</li>
+          </ul>
+          <p><strong>Hier kannst du später eure echte Überraschung eintragen:</strong> Datum, Ort, Uhrzeit und alle Details.</p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const riddles = [
+      {
+        title: 'Rätsel 1',
+        question: 'Ich bin das, was einen Geburtstag noch schöner macht, wenn alle zusammen sind. Was bin ich?',
+        answer: ['familie'],
+        hint: 'Es sind nicht Geschenke, sondern Menschen.'
+      },
+      {
+        title: 'Rätsel 2',
+        question: 'Was sieht man am liebsten von oben, wenn man einen Tag mit schöner Aussicht plant?',
+        answer: ['landschaft', 'aussicht', 'panorama'],
+        hint: 'Dazu gehören Berge, See, Hügel oder Tal.'
+      },
+      {
+        title: 'Rätsel 3',
+        question: 'Was braucht man für einen Tag draussen fast immer an den Füssen?',
+        answer: ['schuhe', 'wanderschuhe'],
+        hint: 'Ohne sie läuft es sich schlecht.'
+      },
+      {
+        title: 'Rätsel 4',
+        question: 'Wenn man nach einem Outdoor-Ausflug hungrig ist, freut man sich auf gutes …?',
+        answer: ['essen'],
+        hint: 'Das ist einer deiner Wünsche für den Tag.'
+      },
+      {
+        title: 'Rätsel 5',
+        question: 'Ich bin draussen, frisch und angenehm — viele geniessen mich auf einem Berg oder am See. Was bin ich?',
+        answer: ['luft', 'frische luft'],
+        hint: 'Man atmet mich ein.'
+      },
+      {
+        title: 'Rätsel 6',
+        question: 'Welches Wort passt: Gemeinsam Erinnerungen schaffen mit der ganzen …?',
+        answer: ['familie'],
+        hint: 'Das Wort kam schon einmal vor.'
+      },
+      {
+        title: 'Rätsel 7',
+        question: 'Ein Tagesausflug mit schöner Aussicht ist oft in der …?',
+        answer: ['natur'],
+        hint: 'Nicht in einem Einkaufszentrum.'
+      },
+      {
+        title: 'Rätsel 8',
+        question: 'Was macht einen schönen Geburtstagstag besonders: Zeit, Freude und gutes …?',
+        answer: ['essen'],
+        hint: 'Etwas Feines auf dem Teller.'
+      },
+      {
+        title: 'Rätsel 9',
+        question: 'Wenn man oben ankommt und weit schauen kann, nennt man das oft auch …?',
+        answer: ['aussicht', 'panorama'],
+        hint: 'Ein anderes Wort dafür ist Panorama.'
+      },
+      {
+        title: 'Rätsel 10',
+        question: 'Was ist am Ende wichtiger als alles andere: zusammen etwas erleben oder allein zuhause bleiben?',
+        answer: ['zusammen', 'gemeinsam'],
+        hint: 'Das Gegenteil von allein.'
+      }
+    ];
+
+    const riddleList = document.getElementById('riddleList');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const finale = document.getElementById('finale');
+
+    function normalizeText(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .replace(/ä/g, 'ae')
+        .replace(/ö/g, 'oe')
+        .replace(/ü/g, 'ue')
+        .replace(/ß/g, 'ss')
+        .replace(/\s+/g, ' ');
+    }
+
+    function updateProgress() {
+      const solved = document.querySelectorAll('.riddle.done').length;
+      progressFill.style.width = `${(solved / riddles.length) * 100}%`;
+      progressText.textContent = `${solved} von ${riddles.length} Rätseln gelöst`;
+      if (solved === riddles.length) finale.classList.add('show');
+    }
+
+    riddles.forEach((riddle, index) => {
+      const article = document.createElement('article');
+      article.className = 'riddle' + (index === 0 ? ' active' : '');
+      article.dataset.index = index;
+      article.innerHTML = `
+        <div class="riddle-top">
+          <div>
+            <span class="badge">${riddle.title}</span>
+            <h3>${riddle.title}</h3>
+          </div>
+        </div>
+        <p>${riddle.question}</p>
+        <div class="answer-row">
+          <input type="text" placeholder="Deine Antwort" aria-label="Antwort für ${riddle.title}" />
+          <div class="btn-row">
+            <button class="btn btn-primary" type="button">Antwort prüfen</button>
+            <button class="btn btn-secondary" type="button">Hinweis anzeigen</button>
+          </div>
+          <div class="feedback" aria-live="polite"></div>
+          <div class="hint">${riddle.hint}</div>
+        </div>
+      `;
+
+      const input = article.querySelector('input');
+      const [checkBtn, hintBtn] = article.querySelectorAll('button');
+      const feedback = article.querySelector('.feedback');
+      const hint = article.querySelector('.hint');
+
+      function checkAnswer() {
+        const value = normalizeText(input.value);
+        const valid = riddle.answer.map(normalizeText).includes(value);
+        if (valid) {
+          article.classList.add('done');
+          feedback.textContent = 'Richtig! Das nächste Rätsel ist freigeschaltet.';
+          feedback.className = 'feedback ok';
+          input.disabled = true;
+          checkBtn.disabled = true;
+          hintBtn.disabled = true;
+          const next = riddleList.querySelector(`.riddle[data-index="${index + 1}"]`);
+          if (next) next.classList.add('active');
+          updateProgress();
+        } else {
+          feedback.textContent = 'Noch nicht richtig – versuche es nochmal.';
+          feedback.className = 'feedback error';
+        }
+      }
+
+      checkBtn.addEventListener('click', checkAnswer);
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') checkAnswer();
+      });
+      hintBtn.addEventListener('click', () => hint.classList.toggle('show'));
+
+      riddleList.appendChild(article);
+    });
+
+    document.querySelector('[data-theme-toggle]').addEventListener('click', () => {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      document.querySelector('[data-theme-toggle]').textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+
+    updateProgress();
+  </script>
+</body>
+</html>
