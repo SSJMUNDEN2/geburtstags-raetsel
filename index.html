@@ -12,13 +12,13 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f6f4ef;
+      background: #f5f1e8;
       color: #222;
       line-height: 1.6;
     }
 
     header {
-      background: #7d2e2e;
+      background: linear-gradient(135deg, #7c2d12, #9a3412);
       color: white;
       padding: 40px 20px;
       text-align: center;
@@ -31,43 +31,71 @@
 
     header p {
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
+      opacity: 0.95;
     }
 
     main {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 30px 20px 60px;
+      padding: 30px 16px 70px;
+    }
+
+    .intro {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .progress {
+      margin-top: 12px;
+      font-weight: bold;
+      color: #9a3412;
     }
 
     .raetsel {
+      display: none;
       background: white;
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 24px;
-      margin-bottom: 28px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      border: 2px solid transparent;
+    }
+
+    .raetsel.active {
+      display: block;
+      border-color: #f59e0b;
+    }
+
+    .raetsel.geloest {
+      border-color: #16a34a;
     }
 
     .raetsel h2 {
       margin-top: 0;
-      color: #7d2e2e;
+      color: #7c2d12;
+      font-size: 1.8rem;
     }
 
-    .raetsel p {
+    .beschreibung {
       margin-bottom: 18px;
     }
 
     .bilder-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+      margin: 18px 0 24px;
     }
 
     .bildkarte {
-      background: #faf8f3;
-      border-radius: 12px;
+      background: #fcfaf6;
+      border: 1px solid #eadfce;
+      border-radius: 14px;
       overflow: hidden;
-      border: 1px solid #e5dfd3;
     }
 
     .bildkarte img {
@@ -80,15 +108,123 @@
 
     .bildkarte span {
       display: block;
-      padding: 10px 12px;
-      font-size: 0.95rem;
       text-align: center;
+      padding: 10px;
+      font-size: 0.95rem;
+      color: #5b4636;
+    }
+
+    .antwort-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .antwort-box input {
+      flex: 1 1 260px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid #cdbda7;
+      font-size: 1rem;
+    }
+
+    .antwort-box button {
+      padding: 14px 18px;
+      border: none;
+      border-radius: 12px;
+      background: #9a3412;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .antwort-box button:hover {
+      background: #7c2d12;
+    }
+
+    .feedback {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      display: none;
+      font-weight: 500;
+    }
+
+    .feedback.fehler {
+      display: block;
+      background: #fff7ed;
+      color: #9a3412;
+      border: 1px solid #fdba74;
+    }
+
+    .feedback.erfolg {
+      display: block;
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #86efac;
+    }
+
+    .hinweis {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-left: 4px solid #f59e0b;
+      background: #fffbeb;
+      color: #92400e;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .hinweis.show {
+      display: block;
+    }
+
+    .finale {
+      display: none;
+      background: linear-gradient(135deg, #14532d, #166534);
+      color: white;
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.15);
+    }
+
+    .finale.show {
+      display: block;
+    }
+
+    .statusbar {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .statuspunkt {
+      padding: 10px 0;
+      text-align: center;
+      border-radius: 999px;
+      background: #e7dccd;
+      color: #6b4f3b;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .statuspunkt.offen {
+      background: #facc15;
+      color: #713f12;
+    }
+
+    .statuspunkt.done {
+      background: #22c55e;
+      color: white;
     }
 
     footer {
       text-align: center;
-      padding: 30px 20px 50px;
-      color: #666;
+      color: #6b7280;
+      padding: 10px 20px 50px;
     }
 
     @media (max-width: 600px) {
@@ -97,7 +233,11 @@
       }
 
       .bildkarte img {
-        height: 180px;
+        height: 170px;
+      }
+
+      .statusbar {
+        grid-template-columns: repeat(5, 1fr);
       }
     }
   </style>
@@ -105,146 +245,346 @@
 <body>
   <header>
     <h1>Geburtstagsrätsel</h1>
-    <p>10 Rätsel mit vielen Bildern und einer Überraschung</p>
+    <p>Löse ein Rätsel nach dem anderen – erst dann geht es weiter.</p>
   </header>
 
   <main>
-    <section class="raetsel">
+    <section class="intro">
+      <h2>So funktioniert es</h2>
+      <p>
+        Du siehst immer nur das aktuelle Rätsel. Gib deine Antwort ein. Wenn sie richtig ist,
+        wird automatisch das nächste Rätsel freigeschaltet.
+      </p>
+      <p class="progress" id="fortschrittText">Fortschritt: Rätsel 1 von 10</p>
+      <div class="statusbar" id="statusbar"></div>
+    </section>
+
+    <section class="raetsel active" id="raetsel1">
       <h2>Rätsel 1</h2>
-      <p>Schau dir die Bilder genau an und finde heraus, was sie gemeinsam haben.</p>
+      <p class="beschreibung">
+        Das erste Rätsel ist bewusst schwer. Schau dir alle Bilder genau an und finde das gemeinsame Wort.
+      </p>
       <div class="bilder-grid">
-        <div class="bildkarte"><img src="Bilder/1.jpeg" alt="Bild 1"><span>Bild 1</span></div>
-        <div class="bildkarte"><img src="Bilder/2.jpeg" alt="Bild 2"><span>Bild 2</span></div>
-        <div class="bildkarte"><img src="Bilder/3.jpeg" alt="Bild 3"><span>Bild 3</span></div>
-        <div class="bildkarte"><img src="Bilder/4.jpeg" alt="Bild 4"><span>Bild 4</span></div>
-        <div class="bildkarte"><img src="Bilder/5.jpeg" alt="Bild 5"><span>Bild 5</span></div>
-        <div class="bildkarte"><img src="Bilder/6.jpeg" alt="Bild 6"><span>Bild 6</span></div>
+        <div class="bildkarte"><img src="./Bilder/1.jpeg" alt="Bild 1"><span>Bild 1</span></div>
+        <div class="bildkarte"><img src="./Bilder/2.jpeg" alt="Bild 2"><span>Bild 2</span></div>
+        <div class="bildkarte"><img src="./Bilder/3.jpeg" alt="Bild 3"><span>Bild 3</span></div>
+        <div class="bildkarte"><img src="./Bilder/4.jpeg" alt="Bild 4"><span>Bild 4</span></div>
+        <div class="bildkarte"><img src="./Bilder/5.jpeg" alt="Bild 5"><span>Bild 5</span></div>
+        <div class="bildkarte"><img src="./Bilder/6.jpeg" alt="Bild 6"><span>Bild 6</span></div>
       </div>
+      <div class="antwort-box">
+        <input type="text" id="input1" placeholder="Deine Antwort für Rätsel 1" />
+        <button onclick="pruefeAntwort(1)">Prüfen</button>
+      </div>
+      <div class="feedback" id="feedback1"></div>
+      <div class="hinweis" id="hinweis1">Hinweis: Denke an das, was alle Bilder inhaltlich miteinander verbindet.</div>
     </section>
 
-    <section class="raetsel">
+    <section class="raetsel" id="raetsel2">
       <h2>Rätsel 2</h2>
-      <p>Diese Bildgruppe gehört zum zweiten Rätsel. Achte auf kleine Details.</p>
+      <p class="beschreibung">Sehr gut. Jetzt kommt die nächste Bildgruppe.</p>
       <div class="bilder-grid">
-        <div class="bildkarte"><img src="Bilder/7.jpeg" alt="Bild 7"><span>Bild 7</span></div>
-        <div class="bildkarte"><img src="Bilder/8.jpeg" alt="Bild 8"><span>Bild 8</span></div>
-        <div class="bildkarte"><img src="Bilder/9.jpeg" alt="Bild 9"><span>Bild 9</span></div>
-        <div class="bildkarte"><img src="Bilder/10.jpeg" alt="Bild 10"><span>Bild 10</span></div>
-        <div class="bildkarte"><img src="Bilder/11.jpeg" alt="Bild 11"><span>Bild 11</span></div>
-        <div class="bildkarte"><img src="Bilder/12.jpeg" alt="Bild 12"><span>Bild 12</span></div>
+        <div class="bildkarte"><img src="./Bilder/7.jpeg" alt="Bild 7"><span>Bild 7</span></div>
+        <div class="bildkarte"><img src="./Bilder/8.jpeg" alt="Bild 8"><span>Bild 8</span></div>
+        <div class="bildkarte"><img src="./Bilder/9.jpeg" alt="Bild 9"><span>Bild 9</span></div>
+        <div class="bildkarte"><img src="./Bilder/10.jpeg" alt="Bild 10"><span>Bild 10</span></div>
+        <div class="bildkarte"><img src="./Bilder/11.jpeg" alt="Bild 11"><span>Bild 11</span></div>
+        <div class="bildkarte"><img src="./Bilder/12.jpeg" alt="Bild 12"><span>Bild 12</span></div>
       </div>
+      <div class="antwort-box">
+        <input type="text" id="input2" placeholder="Deine Antwort für Rätsel 2" />
+        <button onclick="pruefeAntwort(2)">Prüfen</button>
+      </div>
+      <div class="feedback" id="feedback2"></div>
+      <div class="hinweis" id="hinweis2">Hinweis: Achte auf das Thema, nicht nur auf einzelne Objekte.</div>
     </section>
 
-    <section class="raetsel">
+    <section class="raetsel" id="raetsel3">
       <h2>Rätsel 3</h2>
-      <p>Hier findest du die nächsten Hinweise. Vielleicht ergibt sich daraus schon ein Muster.</p>
+      <p class="beschreibung">Jetzt wird das Muster vielleicht klarer.</p>
       <div class="bilder-grid">
-        <div class="bildkarte"><img src="Bilder/13.jpeg" alt="Bild 13"><span>Bild 13</span></div>
-        <div class="bildkarte"><img src="Bilder/14.jpeg" alt="Bild 14"><span>Bild 14</span></div>
-        <div class="bildkarte"><img src="Bilder/15.jpeg" alt="Bild 15"><span>Bild 15</span></div>
-        <div class="bildkarte"><img src="Bilder/16.jpeg" alt="Bild 16"><span>Bild 16</span></div>
-        <div class="bildkarte"><img src="Bilder/17.jpeg" alt="Bild 17"><span>Bild 17</span></div>
-        <div class="bildkarte"><img src="Bilder/18.jpeg" alt="Bild 18"><span>Bild 18</span></div>
+        <div class="bildkarte"><img src="./Bilder/13.jpeg" alt="Bild 13"><span>Bild 13</span></div>
+        <div class="bildkarte"><img src="./Bilder/14.jpeg" alt="Bild 14"><span>Bild 14</span></div>
+        <div class="bildkarte"><img src="./Bilder/15.jpeg" alt="Bild 15"><span>Bild 15</span></div>
+        <div class="bildkarte"><img src="./Bilder/16.jpeg" alt="Bild 16"><span>Bild 16</span></div>
+        <div class="bildkarte"><img src="./Bilder/17.jpeg" alt="Bild 17"><span>Bild 17</span></div>
+        <div class="bildkarte"><img src="./Bilder/18.jpeg" alt="Bild 18"><span>Bild 18</span></div>
       </div>
+      <div class="antwort-box">
+        <input type="text" id="input3" placeholder="Deine Antwort für Rätsel 3" />
+        <button onclick="pruefeAntwort(3)">Prüfen</button>
+      </div>
+      <div class="feedback" id="feedback3"></div>
+      <div class="hinweis" id="hinweis3">Hinweis: Überlege, welches Wort oder welcher Begriff alle Bilder beschreibt.</div>
     </section>
 
-    <section class="raetsel">
+    <section class="raetsel" id="raetsel4">
       <h2>Rätsel 4</h2>
-      <p>Diese Bilder helfen dir beim vierten Rätsel. Vergleiche Farben, Formen oder Orte.</p>
+      <p class="beschreibung">Weiter geht’s mit sechs neuen Bildern.</p>
       <div class="bilder-grid">
-        <div class="bildkarte"><img src="Bilder/19.jpeg" alt="Bild 19"><span>Bild 19</span></div>
-        <div class="bildkarte"><img src="Bilder/20.jpeg" alt="Bild 20"><span>Bild 20</span></div>
-        <div class="bildkarte"><img src="Bilder/21.jpeg" alt="Bild 21"><span>Bild 21</span></div>
-        <div class="bildkarte"><img src="Bilder/22.jpeg" alt="Bild 22"><span>Bild 22</span></div>
-        <div class="bildkarte"><img src="Bilder/23.jpeg" alt="Bild 23"><span>Bild 23</span></div>
-        <div class="bildkarte"><img src="Bilder/24.jpeg" alt="Bild 24"><span>Bild 24</span></div>
+        <div class="bildkarte"><img src="./Bilder/19.jpeg" alt="Bild 19"><span>Bild 19</span></div>
+        <div class="bildkarte"><img src="./Bilder/20.jpeg" alt="Bild 20"><span>Bild 20</span></div>
+        <div class="bildkarte"><img src="./Bilder/21.jpeg" alt="Bild 21"><span>Bild 21</span></div>
+        <div class="bildkarte"><img src="./Bilder/22.jpeg" alt="Bild 22"><span>Bild 22</span></div>
+        <div class="bildkarte"><img src="./Bilder/23.jpeg" alt="Bild 23"><span>Bild 23</span></div>
+        <div class="bildkarte"><img src="./Bilder/24.jpeg" alt="Bild 24"><span>Bild 24</span></div>
       </div>
+      <div class="antwort-box">
+        <input type="text" id="input4" placeholder="Deine Antwort für Rätsel 4" />
+        <button onclick="pruefeAntwort(4)">Prüfen</button>
+      </div>
+      <div class="feedback" id="feedback4"></div>
+      <div class="hinweis" id="hinweis4">Hinweis: Vergleiche die Bildidee statt nur einzelne Details.</div>
     </section>
 
-    <section class="raetsel">
+    <section class="raetsel" id="raetsel5">
       <h2>Rätsel 5</h2>
-      <p>Nun wird es spannender. Nutze die Bilder als Hinweise für die richtige Lösung.</p>
+      <p class="beschreibung">Halbzeit. Jetzt wird’s spannend.</p>
       <div class="bilder-grid">
-        <div class="bildkarte"><img src="Bilder/25.jpeg" alt="Bild 25"><span>Bild 25</span></div>
-        <div class="bildkarte"><img src="Bilder/26.jpeg" alt="Bild 26"><span>Bild 26</span></div>
-        <div class="bildkarte"><img src="Bilder/27.jpeg" alt="Bild 27"><span>Bild 27</span></div>
-        <div class="bildkarte"><img src="Bilder/28.jpeg" alt="Bild 28"><span>Bild 28</span></div>
-        <div class="bildkarte"><img src="Bilder/29.jpeg" alt="Bild 29"><span>Bild 29</span></div>
-        <div class="bildkarte"><img src="Bilder/30.jpeg" alt="Bild 30"><span>Bild 30</span></div>
+        <div class="bildkarte"><img src="./Bilder/25.jpeg" alt="Bild 25"><span>Bild 25</span></div>
+        <div class="bildkarte"><img src="./Bilder/26.jpeg" alt="Bild 26"><span>Bild 26</span></div>
+        <div class="bildkarte"><img src="./Bilder/27.jpeg" alt="Bild 27"><span>Bild 27</span></div>
+        <div class="bildkarte"><img src="./Bilder/28.jpeg" alt="Bild 28"><span>Bild 28</span></div>
+        <div class="bildkarte"><img src="./Bilder/29.jpeg" alt="Bild 29"><span>Bild 29</span></div>
+        <div class="bildkarte"><img src="./Bilder/30.jpeg" alt="Bild 30"><span>Bild 30</span></div>
       </div>
+      <div class="antwort-box">
+        <input type="text" id="input5" placeholder="Deine Antwort für Rätsel 5" />
+        <button onclick="pruefeAntwort(5)">Prüfen</button>
+      </div>
+      <div class="feedback" id="feedback5"></div>
+      <div class="hinweis" id="hinweis5">Hinweis: Oft hilft ein Oberbegriff mehr als ein einzelner Bildname.</div>
     </section>
 
-    <section class="raetsel">
+    <section class="raetsel" id="raetsel6">
       <h2>Rätsel 6</h2>
-      <p>Im sechsten Rätsel warten weitere Bilder, die zusammen einen Hinweis ergeben.</p>
+      <p class="beschreibung">Noch vier Rätsel bis zum Ziel.</p>
       <div class="bilder-grid">
-        <div class="bildkarte"><img src="Bilder/31.jpeg" alt="Bild 31"><span>Bild 31</span></div>
-        <div class="bildkarte"><img src="Bilder/32.jpeg" alt="Bild 32"><span>Bild 32</span></div>
-        <div class="bildkarte"><img src="Bilder/33.jpeg" alt="Bild 33"><span>Bild 33</span></div>
-        <div class="bildkarte"><img src="Bilder/34.jpeg" alt="Bild 34"><span>Bild 34</span></div>
-        <div class="bildkarte"><img src="Bilder/35.jpeg" alt="Bild 35"><span>Bild 35</span></div>
-        <div class="bildkarte"><img src="Bilder/36.jpeg" alt="Bild 36"><span>Bild 36</span></div>
+        <div class="bildkarte"><img src="./Bilder/31.jpeg" alt="Bild 31"><span>Bild 31</span></div>
+        <div class="bildkarte"><img src="./Bilder/32.jpeg" alt="Bild 32"><span>Bild 32</span></div>
+        <div class="bildkarte"><img src="./Bilder/33.jpeg" alt="Bild 33"><span>Bild 33</span></div>
+        <div class="bildkarte"><img src="./Bilder/34.jpeg" alt="Bild 34"><span>Bild 34</span></div>
+        <div class="bildkarte"><img src="./Bilder/35.jpeg" alt="Bild 35"><span>Bild 35</span></div>
+        <div class="bildkarte"><img src="./Bilder/36.jpeg" alt="Bild 36"><span>Bild 36</span></div>
       </div>
+      <div class="antwort-box">
+        <input type="text" id="input6" placeholder="Deine Antwort für Rätsel 6" />
+        <button onclick="pruefeAntwort(6)">Prüfen</button>
+      </div>
+      <div class="feedback" id="feedback6"></div>
+      <div class="hinweis" id="hinweis6">Hinweis: Suche nach einem gemeinsamen Nenner.</div>
     </section>
 
-    <section class="raetsel">
+    <section class="raetsel" id="raetsel7">
       <h2>Rätsel 7</h2>
-      <p>Diese Runde enthält neue Bildkombinationen. Vielleicht erkennst du jetzt den Zusammenhang.</p>
+      <p class="beschreibung">Jetzt wird es anspruchsvoller.</p>
       <div class="bilder-grid">
-        <div class="bildkarte"><img src="Bilder/37.jpeg" alt="Bild 37"><span>Bild 37</span></div>
-        <div class="bildkarte"><img src="Bilder/38.jpeg" alt="Bild 38"><span>Bild 38</span></div>
-        <div class="bildkarte"><img src="Bilder/39.jpeg" alt="Bild 39"><span>Bild 39</span></div>
-        <div class="bildkarte"><img src="Bilder/40.jpeg" alt="Bild 40"><span>Bild 40</span></div>
-        <div class="bildkarte"><img src="Bilder/41.jpeg" alt="Bild 41"><span>Bild 41</span></div>
-        <div class="bildkarte"><img src="Bilder/42.jpeg" alt="Bild 42"><span>Bild 42</span></div>
+        <div class="bildkarte"><img src="./Bilder/37.jpeg" alt="Bild 37"><span>Bild 37</span></div>
+        <div class="bildkarte"><img src="./Bilder/38.jpeg" alt="Bild 38"><span>Bild 38</span></div>
+        <div class="bildkarte"><img src="./Bilder/39.jpeg" alt="Bild 39"><span>Bild 39</span></div>
+        <div class="bildkarte"><img src="./Bilder/40.jpeg" alt="Bild 40"><span>Bild 40</span></div>
+        <div class="bildkarte"><img src="./Bilder/41.jpeg" alt="Bild 41"><span>Bild 41</span></div>
+        <div class="bildkarte"><img src="./Bilder/42.jpeg" alt="Bild 42"><span>Bild 42</span></div>
       </div>
+      <div class="antwort-box">
+        <input type="text" id="input7" placeholder="Deine Antwort für Rätsel 7" />
+        <button onclick="pruefeAntwort(7)">Prüfen</button>
+      </div>
+      <div class="feedback" id="feedback7"></div>
+      <div class="hinweis" id="hinweis7">Hinweis: Die Antwort ist vielleicht abstrakter als du denkst.</div>
     </section>
 
-    <section class="raetsel">
+    <section class="raetsel" id="raetsel8">
       <h2>Rätsel 8</h2>
-      <p>Hier kommen weitere Bilder, die dich dem Ziel näherbringen sollen.</p>
+      <p class="beschreibung">Nur noch wenige Schritte bis zum Ende.</p>
       <div class="bilder-grid">
-        <div class="bildkarte"><img src="Bilder/43.jpeg" alt="Bild 43"><span>Bild 43</span></div>
-        <div class="bildkarte"><img src="Bilder/44.jpeg" alt="Bild 44"><span>Bild 44</span></div>
-        <div class="bildkarte"><img src="Bilder/45.jpeg" alt="Bild 45"><span>Bild 45</span></div>
-        <div class="bildkarte"><img src="Bilder/46.jpeg" alt="Bild 46"><span>Bild 46</span></div>
-        <div class="bildkarte"><img src="Bilder/47.jpeg" alt="Bild 47"><span>Bild 47</span></div>
-        <div class="bildkarte"><img src="Bilder/48.jpeg" alt="Bild 48"><span>Bild 48</span></div>
+        <div class="bildkarte"><img src="./Bilder/43.jpeg" alt="Bild 43"><span>Bild 43</span></div>
+        <div class="bildkarte"><img src="./Bilder/44.jpeg" alt="Bild 44"><span>Bild 44</span></div>
+        <div class="bildkarte"><img src="./Bilder/45.jpeg" alt="Bild 45"><span>Bild 45</span></div>
+        <div class="bildkarte"><img src="./Bilder/46.jpeg" alt="Bild 46"><span>Bild 46</span></div>
+        <div class="bildkarte"><img src="./Bilder/47.jpeg" alt="Bild 47"><span>Bild 47</span></div>
+        <div class="bildkarte"><img src="./Bilder/48.jpeg" alt="Bild 48"><span>Bild 48</span></div>
       </div>
+      <div class="antwort-box">
+        <input type="text" id="input8" placeholder="Deine Antwort für Rätsel 8" />
+        <button onclick="pruefeAntwort(8)">Prüfen</button>
+      </div>
+      <div class="feedback" id="feedback8"></div>
+      <div class="hinweis" id="hinweis8">Hinweis: Welche Gemeinsamkeit springt bei allen Bildern ins Auge?</div>
     </section>
 
-    <section class="raetsel">
+    <section class="raetsel" id="raetsel9">
       <h2>Rätsel 9</h2>
-      <p>Fast geschafft. Diese Bilder bilden den vorletzten Hinweisblock.</p>
+      <p class="beschreibung">Vorletzte Runde. Jetzt genau hinschauen.</p>
       <div class="bilder-grid">
-        <div class="bildkarte"><img src="Bilder/49.jpeg" alt="Bild 49"><span>Bild 49</span></div>
-        <div class="bildkarte"><img src="Bilder/50.jpeg" alt="Bild 50"><span>Bild 50</span></div>
-        <div class="bildkarte"><img src="Bilder/51.jpeg" alt="Bild 51"><span>Bild 51</span></div>
-        <div class="bildkarte"><img src="Bilder/52.jpeg" alt="Bild 52"><span>Bild 52</span></div>
-        <div class="bildkarte"><img src="Bilder/53.jpeg" alt="Bild 53"><span>Bild 53</span></div>
-        <div class="bildkarte"><img src="Bilder/54.jpeg" alt="Bild 54"><span>Bild 54</span></div>
+        <div class="bildkarte"><img src="./Bilder/49.jpeg" alt="Bild 49"><span>Bild 49</span></div>
+        <div class="bildkarte"><img src="./Bilder/50.jpeg" alt="Bild 50"><span>Bild 50</span></div>
+        <div class="bildkarte"><img src="./Bilder/51.jpeg" alt="Bild 51"><span>Bild 51</span></div>
+        <div class="bildkarte"><img src="./Bilder/52.jpeg" alt="Bild 52"><span>Bild 52</span></div>
+        <div class="bildkarte"><img src="./Bilder/53.jpeg" alt="Bild 53"><span>Bild 53</span></div>
+        <div class="bildkarte"><img src="./Bilder/54.jpeg" alt="Bild 54"><span>Bild 54</span></div>
       </div>
+      <div class="antwort-box">
+        <input type="text" id="input9" placeholder="Deine Antwort für Rätsel 9" />
+        <button onclick="pruefeAntwort(9)">Prüfen</button>
+      </div>
+      <div class="feedback" id="feedback9"></div>
+      <div class="hinweis" id="hinweis9">Hinweis: Vielleicht geht es eher um eine Kategorie.</div>
     </section>
 
-    <section class="raetsel">
+    <section class="raetsel" id="raetsel10">
       <h2>Rätsel 10</h2>
-      <p>Das letzte Rätsel enthält die restlichen Bilder bis 63 als finalen Abschnitt.</p>
+      <p class="beschreibung">Finale! Die letzten Bilder entscheiden alles.</p>
       <div class="bilder-grid">
-        <div class="bildkarte"><img src="Bilder/55.jpeg" alt="Bild 55"><span>Bild 55</span></div>
-        <div class="bildkarte"><img src="Bilder/56.jpeg" alt="Bild 56"><span>Bild 56</span></div>
-        <div class="bildkarte"><img src="Bilder/57.jpeg" alt="Bild 57"><span>Bild 57</span></div>
-        <div class="bildkarte"><img src="Bilder/58.jpeg" alt="Bild 58"><span>Bild 58</span></div>
-        <div class="bildkarte"><img src="Bilder/59.jpeg" alt="Bild 59"><span>Bild 59</span></div>
-        <div class="bildkarte"><img src="Bilder/60.jpeg" alt="Bild 60"><span>Bild 60</span></div>
-        <div class="bildkarte"><img src="Bilder/61.jpeg" alt="Bild 61"><span>Bild 61</span></div>
-        <div class="bildkarte"><img src="Bilder/62.jpeg" alt="Bild 62"><span>Bild 62</span></div>
-        <div class="bildkarte"><img src="Bilder/63.jpeg" alt="Bild 63"><span>Bild 63</span></div>
+        <div class="bildkarte"><img src="./Bilder/55.jpeg" alt="Bild 55"><span>Bild 55</span></div>
+        <div class="bildkarte"><img src="./Bilder/57.jpeg" alt="Bild 57"><span>Bild 57</span></div>
+        <div class="bildkarte"><img src="./Bilder/58.jpeg" alt="Bild 58"><span>Bild 58</span></div>
+        <div class="bildkarte"><img src="./Bilder/59.jpeg" alt="Bild 59"><span>Bild 59</span></div>
+        <div class="bildkarte"><img src="./Bilder/60.jpeg" alt="Bild 60"><span>Bild 60</span></div>
+        <div class="bildkarte"><img src="./Bilder/61.jpeg" alt="Bild 61"><span>Bild 61</span></div>
+        <div class="bildkarte"><img src="./Bilder/62.jpeg" alt="Bild 62"><span>Bild 62</span></div>
+        <div class="bildkarte"><img src="./Bilder/63.jpeg" alt="Bild 63"><span>Bild 63</span></div>
       </div>
+      <div class="antwort-box">
+        <input type="text" id="input10" placeholder="Deine Antwort für Rätsel 10" />
+        <button onclick="pruefeAntwort(10)">Prüfen</button>
+      </div>
+      <div class="feedback" id="feedback10"></div>
+      <div class="hinweis" id="hinweis10">Hinweis: Das Ende führt alles zusammen.</div>
+    </section>
+
+    <section class="finale" id="finale">
+      <h2>Geschafft!</h2>
+      <p>Du hast alle 10 Rätsel gelöst. Die Überraschung wartet auf dich.</p>
+      <p>Hier kannst du jetzt deinen finalen Text, ein Geschenk, einen geheimen Link oder eine Botschaft einbauen.</p>
     </section>
   </main>
 
   <footer>
-    Viel Spaß beim Lösen des Geburtstagsrätsels
+    Geburtstagsrätsel mit 10 Aufgaben und Überraschung
   </footer>
+
+  <script>
+    const loesungen = {
+      1: ["geheimwort1"],
+      2: ["geheimwort2"],
+      3: ["geheimwort3"],
+      4: ["geheimwort4"],
+      5: ["geheimwort5"],
+      6: ["geheimwort6"],
+      7: ["geheimwort7"],
+      8: ["geheimwort8"],
+      9: ["geheimwort9"],
+      10: ["geheimwort10"]
+    };
+
+    const versuche = {
+      1: 0, 2: 0, 3: 0, 4: 0, 5: 0,
+      6: 0, 7: 0, 8: 0, 9: 0, 10: 0
+    };
+
+    let aktuellesRaetsel = 1;
+
+    function normalisiereText(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .replaceAll("ä", "ae")
+        .replaceAll("ö", "oe")
+        .replaceAll("ü", "ue")
+        .replaceAll("ß", "ss");
+    }
+
+    function baueStatusbar() {
+      const statusbar = document.getElementById("statusbar");
+      statusbar.innerHTML = "";
+
+      for (let i = 1; i <= 10; i++) {
+        const feld = document.createElement("div");
+        feld.className = "statuspunkt";
+
+        if (i < aktuellesRaetsel) {
+          feld.classList.add("done");
+        } else if (i === aktuellesRaetsel) {
+          feld.classList.add("offen");
+        }
+
+        feld.textContent = i;
+        statusbar.appendChild(feld);
+      }
+    }
+
+    function setzeFortschritt() {
+      const text = document.getElementById("fortschrittText");
+      if (aktuellesRaetsel <= 10) {
+        text.textContent = "Fortschritt: Rätsel " + aktuellesRaetsel + " von 10";
+      } else {
+        text.textContent = "Fortschritt: Alle 10 Rätsel gelöst";
+      }
+      baueStatusbar();
+    }
+
+    function pruefeAntwort(nummer) {
+      const input = document.getElementById("input" + nummer);
+      const feedback = document.getElementById("feedback" + nummer);
+      const hinweis = document.getElementById("hinweis" + nummer);
+
+      const eingabe = normalisiereText(input.value);
+
+      if (!eingabe) {
+        feedback.className = "feedback fehler";
+        feedback.textContent = "Bitte gib zuerst eine Antwort ein.";
+        return;
+      }
+
+      const istRichtig = loesungen[nummer].some(loesung => normalisiereText(loesung) === eingabe);
+
+      if (istRichtig) {
+        feedback.className = "feedback erfolg";
+        feedback.textContent = "Richtig! Das nächste Rätsel wird freigeschaltet.";
+        document.getElementById("raetsel" + nummer).classList.add("geloest");
+        input.disabled = true;
+
+        const button = input.parentElement.querySelector("button");
+        button.disabled = true;
+        button.style.opacity = "0.6";
+        button.style.cursor = "default";
+
+        hinweis.classList.remove("show");
+
+        if (nummer < 10) {
+          aktuellesRaetsel = nummer + 1;
+          document.getElementById("raetsel" + (nummer + 1)).classList.add("active");
+          setzeFortschritt();
+          setTimeout(() => {
+            document.getElementById("raetsel" + (nummer + 1)).scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+          }, 500);
+        } else {
+          aktuellesRaetsel = 11;
+          setzeFortschritt();
+          document.getElementById("finale").classList.add("show");
+          setTimeout(() => {
+            document.getElementById("finale").scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+          }, 500);
+        }
+      } else {
+        versuche[nummer]++;
+        feedback.className = "feedback fehler";
+        feedback.textContent = "Leider noch nicht richtig. Versuch es erneut.";
+
+        if (versuche[nummer] >= 2) {
+          hinweis.classList.add("show");
+        }
+      }
+    }
+
+    setzeFortschritt();
+  </script>
 </body>
 </html>
