@@ -248,156 +248,156 @@
   </main>
 
   <script>
-    const riddles = [
-      {
-        title: 'Rätsel 1',
-        question: 'Ich bin das, was einen Geburtstag noch schöner macht, wenn alle zusammen sind. Was bin ich?',
-        answer: ['familie'],
-        hint: 'Es sind nicht Geschenke, sondern Menschen.'
-      },
-      {
-        title: 'Rätsel 2',
-        question: 'Was sieht man am liebsten von oben, wenn man einen Tag mit schöner Aussicht plant?',
-        answer: ['landschaft', 'aussicht', 'panorama'],
-        hint: 'Dazu gehören Berge, See, Hügel oder Tal.'
-      },
-      {
-        title: 'Rätsel 3',
-        question: 'Was braucht man für einen Tag draussen fast immer an den Füssen?',
-        answer: ['schuhe', 'wanderschuhe'],
-        hint: 'Ohne sie läuft es sich schlecht.'
-      },
-      {
-        title: 'Rätsel 4',
-        question: 'Wenn man nach einem Outdoor-Ausflug hungrig ist, freut man sich auf gutes …?',
-        answer: ['essen'],
-        hint: 'Das ist einer deiner Wünsche für den Tag.'
-      },
-      {
-        title: 'Rätsel 5',
-        question: 'Ich bin draussen, frisch und angenehm — viele geniessen mich auf einem Berg oder am See. Was bin ich?',
-        answer: ['luft', 'frische luft'],
-        hint: 'Man atmet mich ein.'
-      },
-      {
-        title: 'Rätsel 6',
-        question: 'Welches Wort passt: Gemeinsam Erinnerungen schaffen mit der ganzen …?',
-        answer: ['familie'],
-        hint: 'Das Wort kam schon einmal vor.'
-      },
-      {
-        title: 'Rätsel 7',
-        question: 'Ein Tagesausflug mit schöner Aussicht ist oft in der …?',
-        answer: ['natur'],
-        hint: 'Nicht in einem Einkaufszentrum.'
-      },
-      {
-        title: 'Rätsel 8',
-        question: 'Was macht einen schönen Geburtstagstag besonders: Zeit, Freude und gutes …?',
-        answer: ['essen'],
-        hint: 'Etwas Feines auf dem Teller.'
-      },
-      {
-        title: 'Rätsel 9',
-        question: 'Wenn man oben ankommt und weit schauen kann, nennt man das oft auch …?',
-        answer: ['aussicht', 'panorama'],
-        hint: 'Ein anderes Wort dafür ist Panorama.'
-      },
-      {
-        title: 'Rätsel 10',
-        question: 'Was ist am Ende wichtiger als alles andere: zusammen etwas erleben oder allein zuhause bleiben?',
-        answer: ['zusammen', 'gemeinsam'],
-        hint: 'Das Gegenteil von allein.'
+  const riddles = [
+    {
+      title: 'Rätsel 1 — A1Z26',
+      question: 'Entschlüssele: 6-1-13-9-12-9-5',
+      answer: ['familie'],
+      hint: 'A=1, B=2, C=3 ...'
+    },
+    {
+      title: 'Rätsel 2 — Morse',
+      question: 'Entschlüssele den Morse-Code: .- .-.. .--. . -. .-.. .. -.-. .... -',
+      answer: ['alpenlicht'],
+      hint: 'Punkte und Striche ergeben Buchstaben.'
+    },
+    {
+      title: 'Rätsel 3 — Atbash',
+      question: 'Löse mit Atbash: zfhhrxsg',
+      answer: ['aussicht'],
+      hint: 'Bei Atbash wird das Alphabet gespiegelt: A↔Z, B↔Y ...'
+    },
+    {
+      title: 'Rätsel 4 — Binär',
+      question: 'Wandle in Text um: 01100101 01110011 01110011 01100101 01101110',
+      answer: ['essen'],
+      hint: 'Jede 8er-Gruppe ist ein Buchstabe im Binärcode.'
+    },
+    {
+      title: 'Rätsel 5 — Caesar + Zahl',
+      question: 'Ein Wort wurde um 3 Buchstaben nach vorne verschoben: qdwxu. Wie lautet das ursprüngliche Wort?',
+      answer: ['natur'],
+      hint: 'Gehe im Alphabet 3 zurück.'
+    },
+    {
+      title: 'Rätsel 6 — Versteckt im Text',
+      question: 'Nimm aus jedem Wort den ersten Buchstaben: Viele Orte Rufen UnsSchnell Zu Weiten Erlebnissen. Was entsteht?',
+      answer: ['voraus'],
+      hint: 'Schau nur auf die Anfangsbuchstaben.'
+    },
+    {
+      title: 'Rätsel 7 — Quellcode',
+      question: 'Dieses Rätsel ist nicht sichtbar lösbar. Suche im Seitenquelltext nach einem versteckten HTML-Kommentar. Gib den geheimen Code ein.',
+      answer: ['echo9'],
+      hint: 'Rechtsklick oder Seitenquelltext ansehen und nach „secret“ suchen.'
+    },
+    {
+      title: 'Rätsel 8 — URL-Stil',
+      question: 'Der nächste Schlüssel sieht aus wie ein URL-Pfad und besteht aus einem Wort und einer Zahl. Hinweis: berg + 742',
+      answer: ['berg-742'],
+      hint: 'Schreibe es klein und mit Bindestrich.'
+    },
+    {
+      title: 'Rätsel 9 — Meta',
+      question: 'Nimm den ersten Buchstaben der Lösungen von Rätsel 1 bis 8. Daraus entsteht ein neues Codewort. Wie lautet es?',
+      answer: ['faanveeb'],
+      hint: 'Schreibe die Anfangsbuchstaben einfach hintereinander.'
+    },
+    {
+      title: 'Rätsel 10 — Finalcode',
+      question: 'Finale Eingabe: Kombiniere das schönste Licht in den Bergen mit einem geheimen Pfad. Format: wort-zahl',
+      answer: ['alpenlicht-742'],
+      hint: 'Nutze die Lösung aus Rätsel 2 und die Zahl aus Rätsel 8.'
+    }
+  ];
+
+  const riddleList = document.getElementById('riddleList');
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+  const finale = document.getElementById('finale');
+
+  function normalizeText(text) {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/ä/g, 'ae')
+      .replace(/ö/g, 'oe')
+      .replace(/ü/g, 'ue')
+      .replace(/ß/g, 'ss')
+      .replace(/\s+/g, ' ');
+  }
+
+  function updateProgress() {
+    const solved = document.querySelectorAll('.riddle.done').length;
+    progressFill.style.width = `${(solved / riddles.length) * 100}%`;
+    progressText.textContent = `${solved} von ${riddles.length} Rätseln gelöst`;
+    if (solved === riddles.length) finale.classList.add('show');
+  }
+
+  riddles.forEach((riddle, index) => {
+    const article = document.createElement('article');
+    article.className = 'riddle' + (index === 0 ? ' active' : '');
+    article.dataset.index = index;
+    article.innerHTML = `
+      <div class="riddle-top">
+        <div>
+          <span class="badge">${riddle.title}</span>
+          <h3>${riddle.title}</h3>
+        </div>
+      </div>
+      <p>${riddle.question}</p>
+      <div class="answer-row">
+        <input type="text" placeholder="Deine Antwort" aria-label="Antwort für ${riddle.title}" />
+        <div class="btn-row">
+          <button class="btn btn-primary" type="button">Antwort prüfen</button>
+          <button class="btn btn-secondary" type="button">Hinweis anzeigen</button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+        <div class="hint">${riddle.hint}</div>
+      </div>
+    `;
+
+    const input = article.querySelector('input');
+    const [checkBtn, hintBtn] = article.querySelectorAll('button');
+    const feedback = article.querySelector('.feedback');
+    const hint = article.querySelector('.hint');
+
+    function checkAnswer() {
+      const value = normalizeText(input.value);
+      const valid = riddle.answer.map(normalizeText).includes(value);
+      if (valid) {
+        article.classList.add('done');
+        feedback.textContent = 'Richtig! Das nächste Rätsel ist freigeschaltet.';
+        feedback.className = 'feedback ok';
+        input.disabled = true;
+        checkBtn.disabled = true;
+        hintBtn.disabled = true;
+        const next = riddleList.querySelector(`.riddle[data-index="${index + 1}"]`);
+        if (next) next.classList.add('active');
+        updateProgress();
+      } else {
+        feedback.textContent = 'Noch nicht richtig – versuche es nochmal.';
+        feedback.className = 'feedback error';
       }
-    ];
-
-    const riddleList = document.getElementById('riddleList');
-    const progressFill = document.getElementById('progressFill');
-    const progressText = document.getElementById('progressText');
-    const finale = document.getElementById('finale');
-
-    function normalizeText(text) {
-      return text
-        .toLowerCase()
-        .trim()
-        .replace(/ä/g, 'ae')
-        .replace(/ö/g, 'oe')
-        .replace(/ü/g, 'ue')
-        .replace(/ß/g, 'ss')
-        .replace(/\s+/g, ' ');
     }
 
-    function updateProgress() {
-      const solved = document.querySelectorAll('.riddle.done').length;
-      progressFill.style.width = `${(solved / riddles.length) * 100}%`;
-      progressText.textContent = `${solved} von ${riddles.length} Rätseln gelöst`;
-      if (solved === riddles.length) finale.classList.add('show');
-    }
-
-    riddles.forEach((riddle, index) => {
-      const article = document.createElement('article');
-      article.className = 'riddle' + (index === 0 ? ' active' : '');
-      article.dataset.index = index;
-      article.innerHTML = `
-        <div class="riddle-top">
-          <div>
-            <span class="badge">${riddle.title}</span>
-            <h3>${riddle.title}</h3>
-          </div>
-        </div>
-        <p>${riddle.question}</p>
-        <div class="answer-row">
-          <input type="text" placeholder="Deine Antwort" aria-label="Antwort für ${riddle.title}" />
-          <div class="btn-row">
-            <button class="btn btn-primary" type="button">Antwort prüfen</button>
-            <button class="btn btn-secondary" type="button">Hinweis anzeigen</button>
-          </div>
-          <div class="feedback" aria-live="polite"></div>
-          <div class="hint">${riddle.hint}</div>
-        </div>
-      `;
-
-      const input = article.querySelector('input');
-      const [checkBtn, hintBtn] = article.querySelectorAll('button');
-      const feedback = article.querySelector('.feedback');
-      const hint = article.querySelector('.hint');
-
-      function checkAnswer() {
-        const value = normalizeText(input.value);
-        const valid = riddle.answer.map(normalizeText).includes(value);
-        if (valid) {
-          article.classList.add('done');
-          feedback.textContent = 'Richtig! Das nächste Rätsel ist freigeschaltet.';
-          feedback.className = 'feedback ok';
-          input.disabled = true;
-          checkBtn.disabled = true;
-          hintBtn.disabled = true;
-          const next = riddleList.querySelector(`.riddle[data-index="${index + 1}"]`);
-          if (next) next.classList.add('active');
-          updateProgress();
-        } else {
-          feedback.textContent = 'Noch nicht richtig – versuche es nochmal.';
-          feedback.className = 'feedback error';
-        }
-      }
-
-      checkBtn.addEventListener('click', checkAnswer);
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') checkAnswer();
-      });
-      hintBtn.addEventListener('click', () => hint.classList.toggle('show'));
-
-      riddleList.appendChild(article);
+    checkBtn.addEventListener('click', checkAnswer);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') checkAnswer();
     });
+    hintBtn.addEventListener('click', () => hint.classList.toggle('show'));
 
-    document.querySelector('[data-theme-toggle]').addEventListener('click', () => {
-      const html = document.documentElement;
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      document.querySelector('[data-theme-toggle]').textContent = next === 'dark' ? '☀️' : '🌙';
-    });
+    riddleList.appendChild(article);
+  });
 
-    updateProgress();
-  </script>
+  document.querySelector('[data-theme-toggle]').addEventListener('click', () => {
+    const html = document.documentElement;
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    document.querySelector('[data-theme-toggle]').textContent = next === 'dark' ? '☀️' : '🌙';
+  });
+
+  updateProgress();
+</script>
 </body>
 </html>
