@@ -24,9 +24,9 @@
       --bg-4: #d9ffd0;
       --text: #3b1844;
       --muted: #6a4f75;
-      --white: rgba(255,255,255,0.88);
-      --card: rgba(255,255,255,0.72);
-      --border: rgba(255,255,255,0.65);
+      --white: rgba(255, 255, 255, 0.88);
+      --card: rgba(255, 255, 255, 0.72);
+      --border: rgba(255, 255, 255, 0.65);
       --shadow: 0 18px 55px rgba(116, 36, 122, 0.18);
       --radius-xl: 34px;
       --radius-lg: 24px;
@@ -423,6 +423,7 @@
       border-radius: 999px;
       background: rgba(110, 69, 121, 0.22);
       transition: transform .2s ease, background .2s ease;
+      cursor: pointer;
     }
 
     .dot.active {
@@ -499,6 +500,7 @@
       display: block;
       opacity: 1;
       filter: saturate(1.08) contrast(1.04);
+      background: #000;
     }
 
     .video-badge {
@@ -511,6 +513,31 @@
       color: var(--pink-dark);
       font-weight: 800;
       box-shadow: 0 10px 24px rgba(61, 16, 59, 0.14);
+      z-index: 3;
+    }
+
+    .sound-start-btn {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      min-height: 58px;
+      padding: 15px 24px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ff4fa3, #9b5cff, #ff9f1c);
+      background-size: 200% 200%;
+      color: white;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 18px 34px rgba(255,79,163,0.28);
+      z-index: 4;
+      animation: buttonGlow 5s linear infinite;
+    }
+
+    .sound-start-btn.hidden {
+      display: none;
     }
 
     footer {
@@ -531,15 +558,9 @@
     }
 
     @keyframes emojiDrop {
-      0% {
-        transform: translateY(-10vh) rotate(0deg) translateX(0);
-      }
-      50% {
-        transform: translateY(50vh) rotate(180deg) translateX(18px);
-      }
-      100% {
-        transform: translateY(115vh) rotate(360deg) translateX(-18px);
-      }
+      0% { transform: translateY(-10vh) rotate(0deg) translateX(0); }
+      50% { transform: translateY(50vh) rotate(180deg) translateX(18px); }
+      100% { transform: translateY(115vh) rotate(360deg) translateX(-18px); }
     }
 
     @keyframes floatParty {
@@ -569,7 +590,7 @@
     }
 
     @keyframes buttonGlow {
-      0%,100% { background-position: 0% 50%; }
+      0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
     }
 
@@ -640,6 +661,12 @@
       footer {
         border-radius: 24px;
       }
+
+      .sound-start-btn {
+        width: calc(100% - 30px);
+        max-width: 320px;
+        font-size: 15px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -654,7 +681,6 @@
 </head>
 <body>
   <div class="page">
-
     <div class="emoji-rain" aria-hidden="true">
       <span>😂</span>
       <span>🥳</span>
@@ -689,7 +715,7 @@
           <p class="subtitle">
             Diese Seite ist nur für dich gemacht: extra bunt, extra verspielt, extra lebendig
             und mit genau der verrückten Geburtstags-Energie, die zu dir passt.
-            Sie soll sich anfühlen wie eine kleine Überraschungsshow nur für dich  
+            Sie soll sich anfühlen wie eine kleine Überraschungsshow nur für dich —
             lustig, liebevoll und ein bisschen meme-mässig.
           </p>
 
@@ -729,10 +755,10 @@
           </div>
 
           <div class="meme-strip" aria-hidden="true">
-            <span class="meme-pill">"Main character energy"</span>
-            <span class="meme-pill">"Too glam to be calm"</span>
-            <span class="meme-pill">"Birthday level unlocked"</span>
-            <span class="meme-pill">"Nirupa mode: iconic"</span>
+            <span class="meme-pill">Main character energy</span>
+            <span class="meme-pill">Too glam to be calm</span>
+            <span class="meme-pill">Birthday level unlocked</span>
+            <span class="meme-pill">Nirupa mode: iconic</span>
           </div>
         </div>
       </section>
@@ -748,7 +774,7 @@
           <div class="gallery-overlay">
             <div class="gallery-copy">
               <p id="galleryCaption">
-                Eine kleine Bilderreise nur für dich, Nirupa   fröhlich, persönlich und immer weiter zum nächsten Moment.
+                Eine kleine Bilderreise nur für dich, Nirupa — fröhlich, persönlich und immer weiter zum nächsten Moment.
               </p>
             </div>
 
@@ -789,17 +815,21 @@
         <div class="video-copy">
           <h2>Dein besonderer Video-Moment</h2>
           <p>
-            Unten läuft dein Video jetzt viel klarer und grösser, damit man es richtig erkennt.
-            Es bleibt in Schleife und ist als echter Hingucker für dich gedacht.
+            Nirupa, hier wartet dein Video auf dich. Klick auf den Button und es startet mit Ton.
           </p>
         </div>
 
         <div class="video-frame">
           <div class="video-badge">🎬 Für Nirupa</div>
-          <video loop playsinline controls>
+
+          <video id="birthdayVideo" loop playsinline controls preload="auto">
             <source src="./video.mp4" type="video/mp4">
             Dein Browser unterstützt dieses Video nicht.
           </video>
+
+          <button id="soundStartBtn" class="sound-start-btn" type="button">
+            ▶ Video mit Ton starten
+          </button>
         </div>
       </section>
 
@@ -828,12 +858,12 @@
       { src: "./Bilder/1.jpeg", caption: "Ein schöner Moment aus deiner ganz persönlichen Geburtstags-Galerie, Nirupa." },
       { src: "./Bilder/2.jpeg", caption: "Noch ein Bild, das diese Seite ein bisschen mehr nach dir aussehen lässt." },
       { src: "./Bilder/3.jpeg", caption: "Ein weiterer fröhlicher Moment, der perfekt in deine Geburtstagsreise passt." },
-      { src: "./Bilder/4.jpeg", caption: "Diese kleine Galerie geht immer weiter   genau wie die gute Stimmung heute." },
+      { src: "./Bilder/4.jpeg", caption: "Diese kleine Galerie geht immer weiter — genau wie die gute Stimmung heute." },
       { src: "./Bilder/5.jpeg", caption: "Ein Bild für die extra Portion Freude, die heute nur dir gehört." },
       { src: "./Bilder/6.jpeg", caption: "Mehr Erinnerungen, mehr Vibes, mehr Nirupa-Energie." },
       { src: "./Bilder/7.jpeg", caption: "Diese Bilder sind wie kleine Stationen auf deiner Überraschungsreise." },
       { src: "./Bilder/8.jpeg", caption: "Noch ein besonderer Moment für eine besonders besondere Person." },
-      { src: "./Bilder/9.jpeg", caption: "Die Galerie läuft weiter   klick dich einfach durch deine bunten Momente." },
+      { src: "./Bilder/9.jpeg", caption: "Die Galerie läuft weiter — klick dich einfach durch deine bunten Momente." },
       { src: "./Bilder/10.jpeg", caption: "Ein weiteres Kapitel dieser lustigen, lebendigen Geburtstagsseite für dich." }
     ];
 
@@ -897,6 +927,20 @@
 
     updateGallery();
     startAutoSlide();
+
+    const birthdayVideo = document.getElementById("birthdayVideo");
+    const soundStartBtn = document.getElementById("soundStartBtn");
+
+    soundStartBtn.addEventListener("click", async () => {
+      try {
+        birthdayVideo.muted = false;
+        birthdayVideo.volume = 1;
+        await birthdayVideo.play();
+        soundStartBtn.classList.add("hidden");
+      } catch (error) {
+        alert("Das Video konnte nicht direkt mit Ton gestartet werden. Bitte drücke zusätzlich im Videoplayer auf Play.");
+      }
+    });
   </script>
 </body>
 </html>
