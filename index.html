@@ -3,588 +3,454 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Geburtstagsrätsel</title>
+  <title>Happy Birthday Nirupa</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --bg: #fff8fb;
+      --bg-soft: #fff1f6;
+      --card: rgba(255, 255, 255, 0.72);
+      --text: #2d1622;
+      --muted: #7a5a6c;
+      --primary: #d94f8a;
+      --primary-dark: #b93870;
+      --accent: #ffd6e7;
+      --border: rgba(217, 79, 138, 0.16);
+      --shadow: 0 20px 60px rgba(183, 70, 119, 0.16);
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+    }
+
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f1e8;
-      color: #222;
-      line-height: 1.6;
+      min-height: 100vh;
+      font-family: "Inter", sans-serif;
+      background:
+        radial-gradient(circle at top left, #ffe7f1 0%, transparent 35%),
+        radial-gradient(circle at top right, #ffeef5 0%, transparent 30%),
+        linear-gradient(180deg, #fff9fc 0%, #fff2f7 100%);
+      color: var(--text);
+      overflow-x: hidden;
     }
 
-    header {
-      background: linear-gradient(135deg, #7c2d12, #9a3412);
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0 0 10px;
-      font-size: 2.2rem;
-    }
-
-    header p {
-      margin: 0;
-      font-size: 1.05rem;
-      opacity: 0.95;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 30px 16px 70px;
-    }
-
-    .intro {
-      background: white;
-      border-radius: 18px;
-      padding: 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    }
-
-    .progress {
-      margin-top: 12px;
-      font-weight: bold;
-      color: #9a3412;
-    }
-
-    .raetsel {
-      display: none;
-      background: white;
-      border-radius: 18px;
-      padding: 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      border: 2px solid transparent;
-    }
-
-    .raetsel.active {
-      display: block;
-      border-color: #f59e0b;
-    }
-
-    .raetsel.geloest {
-      border-color: #16a34a;
-    }
-
-    .raetsel h2 {
-      margin-top: 0;
-      color: #7c2d12;
-      font-size: 1.8rem;
-    }
-
-    .beschreibung {
-      margin-bottom: 18px;
-    }
-
-    .bilder-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 14px;
-      margin: 18px 0 24px;
-    }
-
-    .bildkarte {
-      background: #fcfaf6;
-      border: 1px solid #eadfce;
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-    .bildkarte img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-      background: #ddd;
-    }
-
-    .bildkarte span {
-      display: block;
-      text-align: center;
-      padding: 10px;
-      font-size: 0.95rem;
-      color: #5b4636;
-    }
-
-    .antwort-box {
+    .page {
+      position: relative;
+      min-height: 100vh;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 24px;
+      display: grid;
+      gap: 28px;
+    }
+
+    .top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--border);
+      color: var(--primary-dark);
+      font-size: 14px;
+      font-weight: 600;
+      width: fit-content;
+      box-shadow: 0 8px 30px rgba(217, 79, 138, 0.08);
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: clamp(28px, 4vw, 56px);
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.66), rgba(255,255,255,0.18)),
+        radial-gradient(circle at 85% 15%, rgba(255, 214, 231, 0.8), transparent 30%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 20px;
+      max-width: 760px;
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(42px, 8vw, 84px);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      color: #401b2d;
+    }
+
+    .subtitle {
+      font-size: clamp(18px, 2.4vw, 24px);
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 62ch;
+    }
+
+    .gift-box {
+      display: grid;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+
+    .gift-box p {
+      line-height: 1.7;
+      color: #5a3849;
+      font-size: 16px;
+    }
+
+    .selector-wrap {
+      display: grid;
       gap: 12px;
       margin-top: 8px;
+      max-width: 340px;
     }
 
-    .antwort-box input {
-      flex: 1 1 260px;
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid #cdbda7;
-      font-size: 1rem;
+    label {
+      font-size: 15px;
+      font-weight: 600;
+      color: #62384c;
     }
 
-    .antwort-box button {
-      padding: 14px 18px;
-      border: none;
-      border-radius: 12px;
-      background: #9a3412;
-      color: white;
-      font-size: 1rem;
+    select {
+      width: 100%;
+      appearance: none;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 15px 18px;
+      font-size: 16px;
+      background: #fff;
+      color: var(--text);
+      outline: none;
+      box-shadow: 0 10px 25px rgba(217, 79, 138, 0.08);
       cursor: pointer;
-      font-weight: bold;
     }
 
-    .antwort-box button:hover {
-      background: #7c2d12;
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(217, 79, 138, 0.14);
     }
 
-    .feedback {
-      margin-top: 14px;
-      padding: 14px 16px;
-      border-radius: 12px;
-      display: none;
-      font-weight: 500;
+    .date-info {
+      min-height: 24px;
+      font-size: 15px;
+      color: var(--primary-dark);
+      font-weight: 600;
     }
 
-    .feedback.fehler {
-      display: block;
-      background: #fff7ed;
-      color: #9a3412;
-      border: 1px solid #fdba74;
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 4px;
     }
 
-    .feedback.erfolg {
-      display: block;
-      background: #f0fdf4;
-      color: #166534;
-      border: 1px solid #86efac;
-    }
-
-    .hinweis {
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-left: 4px solid #f59e0b;
-      background: #fffbeb;
-      color: #92400e;
-      border-radius: 10px;
-      display: none;
-    }
-
-    .hinweis.show {
-      display: block;
-    }
-
-    .finale {
-      display: none;
-      background: linear-gradient(135deg, #14532d, #166534);
-      color: white;
-      border-radius: 20px;
-      padding: 28px;
-      text-align: center;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.15);
-    }
-
-    .finale.show {
-      display: block;
-    }
-
-    .statusbar {
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .statuspunkt {
-      padding: 10px 0;
-      text-align: center;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 14px 20px;
       border-radius: 999px;
-      background: #e7dccd;
-      color: #6b4f3b;
-      font-size: 0.9rem;
-      font-weight: bold;
-    }
-
-    .statuspunkt.offen {
-      background: #facc15;
-      color: #713f12;
-    }
-
-    .statuspunkt.done {
-      background: #22c55e;
+      border: none;
+      background: var(--primary);
       color: white;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 12px 28px rgba(217, 79, 138, 0.25);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: var(--primary-dark);
+    }
+
+    .progress-card {
+      display: grid;
+      gap: 14px;
+      margin-top: 10px;
+      padding: 20px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,247,251,0.92));
+      border: 1px solid rgba(217, 79, 138, 0.14);
+    }
+
+    .progress-card h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(26px, 4vw, 38px);
+      color: #4b2035;
+    }
+
+    .progress-card p {
+      color: #654457;
+      line-height: 1.7;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .step {
+      border-radius: 14px;
+      padding: 14px 10px;
+      background: #fff;
+      border: 1px solid rgba(217, 79, 138, 0.14);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #8b5b71;
+    }
+
+    .video-section {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto 32px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .video-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      min-height: 320px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      background: #1b0e15;
+    }
+
+    .video-card video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(25, 10, 18, 0.12) 0%,
+        rgba(25, 10, 18, 0.32) 55%,
+        rgba(25, 10, 18, 0.68) 100%
+      );
+      display: flex;
+      align-items: flex-end;
+      padding: clamp(20px, 4vw, 34px);
+    }
+
+    .video-text {
+      color: white;
+      max-width: 700px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .video-text h3 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(28px, 5vw, 46px);
+      line-height: 1.05;
+    }
+
+    .video-text p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.88);
     }
 
     footer {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto 28px;
       text-align: center;
-      color: #6b7280;
-      padding: 10px 20px 50px;
+      color: #8e6c7e;
+      font-size: 14px;
     }
 
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.8rem;
+    @media (max-width: 820px) {
+      .steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .bildkarte img {
-        height: 170px;
+      .video-card {
+        min-height: 260px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero {
+        padding-top: 24px;
       }
 
-      .statusbar {
-        grid-template-columns: repeat(5, 1fr);
+      .hero-card,
+      .gift-box,
+      .progress-card {
+        padding: 18px;
+      }
+
+      .steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .step {
+        font-size: 13px;
+        padding: 12px 8px;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Geburtstagsrätsel</h1>
-    <p>Löse ein Rätsel nach dem anderen – erst dann geht es weiter.</p>
-  </header>
+  <div class="page">
+    <main class="hero">
+      <div class="top-badge">🎉 Für einen ganz besonderen Geburtstag</div>
 
-  <main>
-    <section class="intro">
-      <h2>So funktioniert es</h2>
-      <p>
-        Du siehst immer nur das aktuelle Rätsel. Gib deine Antwort ein. Wenn sie richtig ist,
-        wird automatisch das nächste Rätsel freigeschaltet.
-      </p>
-      <p class="progress" id="fortschrittText">Fortschritt: Rätsel 1 von 10</p>
-      <div class="statusbar" id="statusbar"></div>
+      <section class="hero-card">
+        <div class="hero-content">
+          <h1>Happy Birthday Nirupa</h1>
+
+          <p class="subtitle">
+            Heute geht es nur um dich. Wir haben etwas Besonderes vorbereitet,
+            und dein Geschenk hängt davon ab, welchen besonderen Tag du auswählst.
+          </p>
+
+          <div class="gift-box">
+            <p>
+              Unser Geschenk ist abhängig von einem speziellen Tag.
+              Unten kannst du ein Datum auswählen:
+            </p>
+
+            <div class="selector-wrap">
+              <label for="datumSelect">Wähle ein Datum aus</label>
+              <select id="datumSelect">
+                <option value="">Wähle ein Datum aus</option>
+                <option value="7. Juni">7. Juni</option>
+                <option value="21. Juni">21. Juni</option>
+                <option value="5. Juli">5. Juli</option>
+              </select>
+              <div class="date-info" id="dateInfo"></div>
+            </div>
+
+            <p>
+              Außerdem machen wir 10 Rätsel. Wenn du diese löst, wirst du an
+              diesem speziellen Tag erfahren, was das Geschenk ist.
+            </p>
+
+            <div class="button-row">
+              <a href="#raetsel-info" class="btn">Zu den 10 Rätseln</a>
+            </div>
+          </div>
+
+          <section class="progress-card" id="raetsel-info">
+            <h2>Die 10 Rätsel</h2>
+            <p>
+              Die bisherigen alten Rätsel sind raus. Stattdessen beginnt hier
+              eine neue Geburtstagsreise mit insgesamt 10 Rätseln, die Schritt
+              für Schritt zur Überraschung führt.
+            </p>
+            <p>
+              Erst wenn alle 10 Rätsel gelöst sind, erfährst du am ausgewählten
+              besonderen Tag, welches Geschenk auf dich wartet.
+            </p>
+
+            <div class="steps">
+              <div class="step">Rätsel 1</div>
+              <div class="step">Rätsel 2</div>
+              <div class="step">Rätsel 3</div>
+              <div class="step">Rätsel 4</div>
+              <div class="step">Rätsel 5</div>
+              <div class="step">Rätsel 6</div>
+              <div class="step">Rätsel 7</div>
+              <div class="step">Rätsel 8</div>
+              <div class="step">Rätsel 9</div>
+              <div class="step">Rätsel 10</div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <section class="video-section">
+      <div class="video-card">
+        <video autoplay muted loop playsinline>
+          <source src="./video.mp4" type="video/mp4">
+          Dein Browser unterstützt dieses Video nicht.
+        </video>
+
+        <div class="video-overlay">
+          <div class="video-text">
+            <h3>Ein besonderer Moment in Dauerschleife</h3>
+            <p>
+              Dieses Video läuft unten immer und immer wieder und macht die Seite
+              noch persönlicher für Nirupa.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="raetsel active" id="raetsel1">
-      <h2>Rätsel 1</h2>
-      <p class="beschreibung">
-        Das erste Rätsel ist bewusst schwer. Schau dir alle Bilder genau an und finde das gemeinsame Wort.
-      </p>
-      <div class="bilder-grid">
-        <div class="bildkarte"><img src="./Bilder/1.jpeg" alt="Bild 1"><span>Bild 1</span></div>
-        <div class="bildkarte"><img src="./Bilder/2.jpeg" alt="Bild 2"><span>Bild 2</span></div>
-        <div class="bildkarte"><img src="./Bilder/3.jpeg" alt="Bild 3"><span>Bild 3</span></div>
-        <div class="bildkarte"><img src="./Bilder/4.jpeg" alt="Bild 4"><span>Bild 4</span></div>
-        <div class="bildkarte"><img src="./Bilder/5.jpeg" alt="Bild 5"><span>Bild 5</span></div>
-        <div class="bildkarte"><img src="./Bilder/6.jpeg" alt="Bild 6"><span>Bild 6</span></div>
-      </div>
-      <div class="antwort-box">
-        <input type="text" id="input1" placeholder="Deine Antwort für Rätsel 1" />
-        <button onclick="pruefeAntwort(1)">Prüfen</button>
-      </div>
-      <div class="feedback" id="feedback1"></div>
-      <div class="hinweis" id="hinweis1">Hinweis: Denke an das, was alle Bilder inhaltlich miteinander verbindet.</div>
-    </section>
-
-    <section class="raetsel" id="raetsel2">
-      <h2>Rätsel 2</h2>
-      <p class="beschreibung">Sehr gut. Jetzt kommt die nächste Bildgruppe.</p>
-      <div class="bilder-grid">
-        <div class="bildkarte"><img src="./Bilder/7.jpeg" alt="Bild 7"><span>Bild 7</span></div>
-        <div class="bildkarte"><img src="./Bilder/8.jpeg" alt="Bild 8"><span>Bild 8</span></div>
-        <div class="bildkarte"><img src="./Bilder/9.jpeg" alt="Bild 9"><span>Bild 9</span></div>
-        <div class="bildkarte"><img src="./Bilder/10.jpeg" alt="Bild 10"><span>Bild 10</span></div>
-        <div class="bildkarte"><img src="./Bilder/11.jpeg" alt="Bild 11"><span>Bild 11</span></div>
-        <div class="bildkarte"><img src="./Bilder/12.jpeg" alt="Bild 12"><span>Bild 12</span></div>
-      </div>
-      <div class="antwort-box">
-        <input type="text" id="input2" placeholder="Deine Antwort für Rätsel 2" />
-        <button onclick="pruefeAntwort(2)">Prüfen</button>
-      </div>
-      <div class="feedback" id="feedback2"></div>
-      <div class="hinweis" id="hinweis2">Hinweis: Achte auf das Thema, nicht nur auf einzelne Objekte.</div>
-    </section>
-
-    <section class="raetsel" id="raetsel3">
-      <h2>Rätsel 3</h2>
-      <p class="beschreibung">Jetzt wird das Muster vielleicht klarer.</p>
-      <div class="bilder-grid">
-        <div class="bildkarte"><img src="./Bilder/13.jpeg" alt="Bild 13"><span>Bild 13</span></div>
-        <div class="bildkarte"><img src="./Bilder/14.jpeg" alt="Bild 14"><span>Bild 14</span></div>
-        <div class="bildkarte"><img src="./Bilder/15.jpeg" alt="Bild 15"><span>Bild 15</span></div>
-        <div class="bildkarte"><img src="./Bilder/16.jpeg" alt="Bild 16"><span>Bild 16</span></div>
-        <div class="bildkarte"><img src="./Bilder/17.jpeg" alt="Bild 17"><span>Bild 17</span></div>
-        <div class="bildkarte"><img src="./Bilder/18.jpeg" alt="Bild 18"><span>Bild 18</span></div>
-      </div>
-      <div class="antwort-box">
-        <input type="text" id="input3" placeholder="Deine Antwort für Rätsel 3" />
-        <button onclick="pruefeAntwort(3)">Prüfen</button>
-      </div>
-      <div class="feedback" id="feedback3"></div>
-      <div class="hinweis" id="hinweis3">Hinweis: Überlege, welches Wort oder welcher Begriff alle Bilder beschreibt.</div>
-    </section>
-
-    <section class="raetsel" id="raetsel4">
-      <h2>Rätsel 4</h2>
-      <p class="beschreibung">Weiter geht’s mit sechs neuen Bildern.</p>
-      <div class="bilder-grid">
-        <div class="bildkarte"><img src="./Bilder/19.jpeg" alt="Bild 19"><span>Bild 19</span></div>
-        <div class="bildkarte"><img src="./Bilder/20.jpeg" alt="Bild 20"><span>Bild 20</span></div>
-        <div class="bildkarte"><img src="./Bilder/21.jpeg" alt="Bild 21"><span>Bild 21</span></div>
-        <div class="bildkarte"><img src="./Bilder/22.jpeg" alt="Bild 22"><span>Bild 22</span></div>
-        <div class="bildkarte"><img src="./Bilder/23.jpeg" alt="Bild 23"><span>Bild 23</span></div>
-        <div class="bildkarte"><img src="./Bilder/24.jpeg" alt="Bild 24"><span>Bild 24</span></div>
-      </div>
-      <div class="antwort-box">
-        <input type="text" id="input4" placeholder="Deine Antwort für Rätsel 4" />
-        <button onclick="pruefeAntwort(4)">Prüfen</button>
-      </div>
-      <div class="feedback" id="feedback4"></div>
-      <div class="hinweis" id="hinweis4">Hinweis: Vergleiche die Bildidee statt nur einzelne Details.</div>
-    </section>
-
-    <section class="raetsel" id="raetsel5">
-      <h2>Rätsel 5</h2>
-      <p class="beschreibung">Halbzeit. Jetzt wird’s spannend.</p>
-      <div class="bilder-grid">
-        <div class="bildkarte"><img src="./Bilder/25.jpeg" alt="Bild 25"><span>Bild 25</span></div>
-        <div class="bildkarte"><img src="./Bilder/26.jpeg" alt="Bild 26"><span>Bild 26</span></div>
-        <div class="bildkarte"><img src="./Bilder/27.jpeg" alt="Bild 27"><span>Bild 27</span></div>
-        <div class="bildkarte"><img src="./Bilder/28.jpeg" alt="Bild 28"><span>Bild 28</span></div>
-        <div class="bildkarte"><img src="./Bilder/29.jpeg" alt="Bild 29"><span>Bild 29</span></div>
-        <div class="bildkarte"><img src="./Bilder/30.jpeg" alt="Bild 30"><span>Bild 30</span></div>
-      </div>
-      <div class="antwort-box">
-        <input type="text" id="input5" placeholder="Deine Antwort für Rätsel 5" />
-        <button onclick="pruefeAntwort(5)">Prüfen</button>
-      </div>
-      <div class="feedback" id="feedback5"></div>
-      <div class="hinweis" id="hinweis5">Hinweis: Oft hilft ein Oberbegriff mehr als ein einzelner Bildname.</div>
-    </section>
-
-    <section class="raetsel" id="raetsel6">
-      <h2>Rätsel 6</h2>
-      <p class="beschreibung">Noch vier Rätsel bis zum Ziel.</p>
-      <div class="bilder-grid">
-        <div class="bildkarte"><img src="./Bilder/31.jpeg" alt="Bild 31"><span>Bild 31</span></div>
-        <div class="bildkarte"><img src="./Bilder/32.jpeg" alt="Bild 32"><span>Bild 32</span></div>
-        <div class="bildkarte"><img src="./Bilder/33.jpeg" alt="Bild 33"><span>Bild 33</span></div>
-        <div class="bildkarte"><img src="./Bilder/34.jpeg" alt="Bild 34"><span>Bild 34</span></div>
-        <div class="bildkarte"><img src="./Bilder/35.jpeg" alt="Bild 35"><span>Bild 35</span></div>
-        <div class="bildkarte"><img src="./Bilder/36.jpeg" alt="Bild 36"><span>Bild 36</span></div>
-      </div>
-      <div class="antwort-box">
-        <input type="text" id="input6" placeholder="Deine Antwort für Rätsel 6" />
-        <button onclick="pruefeAntwort(6)">Prüfen</button>
-      </div>
-      <div class="feedback" id="feedback6"></div>
-      <div class="hinweis" id="hinweis6">Hinweis: Suche nach einem gemeinsamen Nenner.</div>
-    </section>
-
-    <section class="raetsel" id="raetsel7">
-      <h2>Rätsel 7</h2>
-      <p class="beschreibung">Jetzt wird es anspruchsvoller.</p>
-      <div class="bilder-grid">
-        <div class="bildkarte"><img src="./Bilder/37.jpeg" alt="Bild 37"><span>Bild 37</span></div>
-        <div class="bildkarte"><img src="./Bilder/38.jpeg" alt="Bild 38"><span>Bild 38</span></div>
-        <div class="bildkarte"><img src="./Bilder/39.jpeg" alt="Bild 39"><span>Bild 39</span></div>
-        <div class="bildkarte"><img src="./Bilder/40.jpeg" alt="Bild 40"><span>Bild 40</span></div>
-        <div class="bildkarte"><img src="./Bilder/41.jpeg" alt="Bild 41"><span>Bild 41</span></div>
-        <div class="bildkarte"><img src="./Bilder/42.jpeg" alt="Bild 42"><span>Bild 42</span></div>
-      </div>
-      <div class="antwort-box">
-        <input type="text" id="input7" placeholder="Deine Antwort für Rätsel 7" />
-        <button onclick="pruefeAntwort(7)">Prüfen</button>
-      </div>
-      <div class="feedback" id="feedback7"></div>
-      <div class="hinweis" id="hinweis7">Hinweis: Die Antwort ist vielleicht abstrakter als du denkst.</div>
-    </section>
-
-    <section class="raetsel" id="raetsel8">
-      <h2>Rätsel 8</h2>
-      <p class="beschreibung">Nur noch wenige Schritte bis zum Ende.</p>
-      <div class="bilder-grid">
-        <div class="bildkarte"><img src="./Bilder/43.jpeg" alt="Bild 43"><span>Bild 43</span></div>
-        <div class="bildkarte"><img src="./Bilder/44.jpeg" alt="Bild 44"><span>Bild 44</span></div>
-        <div class="bildkarte"><img src="./Bilder/45.jpeg" alt="Bild 45"><span>Bild 45</span></div>
-        <div class="bildkarte"><img src="./Bilder/46.jpeg" alt="Bild 46"><span>Bild 46</span></div>
-        <div class="bildkarte"><img src="./Bilder/47.jpeg" alt="Bild 47"><span>Bild 47</span></div>
-        <div class="bildkarte"><img src="./Bilder/48.jpeg" alt="Bild 48"><span>Bild 48</span></div>
-      </div>
-      <div class="antwort-box">
-        <input type="text" id="input8" placeholder="Deine Antwort für Rätsel 8" />
-        <button onclick="pruefeAntwort(8)">Prüfen</button>
-      </div>
-      <div class="feedback" id="feedback8"></div>
-      <div class="hinweis" id="hinweis8">Hinweis: Welche Gemeinsamkeit springt bei allen Bildern ins Auge?</div>
-    </section>
-
-    <section class="raetsel" id="raetsel9">
-      <h2>Rätsel 9</h2>
-      <p class="beschreibung">Vorletzte Runde. Jetzt genau hinschauen.</p>
-      <div class="bilder-grid">
-        <div class="bildkarte"><img src="./Bilder/49.jpeg" alt="Bild 49"><span>Bild 49</span></div>
-        <div class="bildkarte"><img src="./Bilder/50.jpeg" alt="Bild 50"><span>Bild 50</span></div>
-        <div class="bildkarte"><img src="./Bilder/51.jpeg" alt="Bild 51"><span>Bild 51</span></div>
-        <div class="bildkarte"><img src="./Bilder/52.jpeg" alt="Bild 52"><span>Bild 52</span></div>
-        <div class="bildkarte"><img src="./Bilder/53.jpeg" alt="Bild 53"><span>Bild 53</span></div>
-        <div class="bildkarte"><img src="./Bilder/54.jpeg" alt="Bild 54"><span>Bild 54</span></div>
-      </div>
-      <div class="antwort-box">
-        <input type="text" id="input9" placeholder="Deine Antwort für Rätsel 9" />
-        <button onclick="pruefeAntwort(9)">Prüfen</button>
-      </div>
-      <div class="feedback" id="feedback9"></div>
-      <div class="hinweis" id="hinweis9">Hinweis: Vielleicht geht es eher um eine Kategorie.</div>
-    </section>
-
-    <section class="raetsel" id="raetsel10">
-      <h2>Rätsel 10</h2>
-      <p class="beschreibung">Finale! Die letzten Bilder entscheiden alles.</p>
-      <div class="bilder-grid">
-        <div class="bildkarte"><img src="./Bilder/55.jpeg" alt="Bild 55"><span>Bild 55</span></div>
-        <div class="bildkarte"><img src="./Bilder/57.jpeg" alt="Bild 57"><span>Bild 57</span></div>
-        <div class="bildkarte"><img src="./Bilder/58.jpeg" alt="Bild 58"><span>Bild 58</span></div>
-        <div class="bildkarte"><img src="./Bilder/59.jpeg" alt="Bild 59"><span>Bild 59</span></div>
-        <div class="bildkarte"><img src="./Bilder/60.jpeg" alt="Bild 60"><span>Bild 60</span></div>
-        <div class="bildkarte"><img src="./Bilder/61.jpeg" alt="Bild 61"><span>Bild 61</span></div>
-        <div class="bildkarte"><img src="./Bilder/62.jpeg" alt="Bild 62"><span>Bild 62</span></div>
-        <div class="bildkarte"><img src="./Bilder/63.jpeg" alt="Bild 63"><span>Bild 63</span></div>
-      </div>
-      <div class="antwort-box">
-        <input type="text" id="input10" placeholder="Deine Antwort für Rätsel 10" />
-        <button onclick="pruefeAntwort(10)">Prüfen</button>
-      </div>
-      <div class="feedback" id="feedback10"></div>
-      <div class="hinweis" id="hinweis10">Hinweis: Das Ende führt alles zusammen.</div>
-    </section>
-
-    <section class="finale" id="finale">
-      <h2>Geschafft!</h2>
-      <p>Du hast alle 10 Rätsel gelöst. Die Überraschung wartet auf dich.</p>
-      <p>Hier kannst du jetzt deinen finalen Text, ein Geschenk, einen geheimen Link oder eine Botschaft einbauen.</p>
-    </section>
-  </main>
-
-  <footer>
-    Geburtstagsrätsel mit 10 Aufgaben und Überraschung
-  </footer>
+    <footer>
+      Happy Birthday Nirupa · Das Geschenk bleibt bis zum besonderen Tag geheim
+    </footer>
+  </div>
 
   <script>
-    const loesungen = {
-      1: ["geheimwort1"],
-      2: ["geheimwort2"],
-      3: ["geheimwort3"],
-      4: ["geheimwort4"],
-      5: ["geheimwort5"],
-      6: ["geheimwort6"],
-      7: ["geheimwort7"],
-      8: ["geheimwort8"],
-      9: ["geheimwort9"],
-      10: ["geheimwort10"]
-    };
+    const datumSelect = document.getElementById("datumSelect");
+    const dateInfo = document.getElementById("dateInfo");
 
-    const versuche = {
-      1: 0, 2: 0, 3: 0, 4: 0, 5: 0,
-      6: 0, 7: 0, 8: 0, 9: 0, 10: 0
-    };
+    datumSelect.addEventListener("change", function () {
+      const value = this.value;
 
-    let aktuellesRaetsel = 1;
-
-    function normalisiereText(text) {
-      return text
-        .toLowerCase()
-        .trim()
-        .replaceAll("ä", "ae")
-        .replaceAll("ö", "oe")
-        .replaceAll("ü", "ue")
-        .replaceAll("ß", "ss");
-    }
-
-    function baueStatusbar() {
-      const statusbar = document.getElementById("statusbar");
-      statusbar.innerHTML = "";
-
-      for (let i = 1; i <= 10; i++) {
-        const feld = document.createElement("div");
-        feld.className = "statuspunkt";
-
-        if (i < aktuellesRaetsel) {
-          feld.classList.add("done");
-        } else if (i === aktuellesRaetsel) {
-          feld.classList.add("offen");
-        }
-
-        feld.textContent = i;
-        statusbar.appendChild(feld);
-      }
-    }
-
-    function setzeFortschritt() {
-      const text = document.getElementById("fortschrittText");
-      if (aktuellesRaetsel <= 10) {
-        text.textContent = "Fortschritt: Rätsel " + aktuellesRaetsel + " von 10";
-      } else {
-        text.textContent = "Fortschritt: Alle 10 Rätsel gelöst";
-      }
-      baueStatusbar();
-    }
-
-    function pruefeAntwort(nummer) {
-      const input = document.getElementById("input" + nummer);
-      const feedback = document.getElementById("feedback" + nummer);
-      const hinweis = document.getElementById("hinweis" + nummer);
-
-      const eingabe = normalisiereText(input.value);
-
-      if (!eingabe) {
-        feedback.className = "feedback fehler";
-        feedback.textContent = "Bitte gib zuerst eine Antwort ein.";
+      if (!value) {
+        dateInfo.textContent = "";
         return;
       }
 
-      const istRichtig = loesungen[nummer].some(loesung => normalisiereText(loesung) === eingabe);
-
-      if (istRichtig) {
-        feedback.className = "feedback erfolg";
-        feedback.textContent = "Richtig! Das nächste Rätsel wird freigeschaltet.";
-        document.getElementById("raetsel" + nummer).classList.add("geloest");
-        input.disabled = true;
-
-        const button = input.parentElement.querySelector("button");
-        button.disabled = true;
-        button.style.opacity = "0.6";
-        button.style.cursor = "default";
-
-        hinweis.classList.remove("show");
-
-        if (nummer < 10) {
-          aktuellesRaetsel = nummer + 1;
-          document.getElementById("raetsel" + (nummer + 1)).classList.add("active");
-          setzeFortschritt();
-          setTimeout(() => {
-            document.getElementById("raetsel" + (nummer + 1)).scrollIntoView({
-              behavior: "smooth",
-              block: "start"
-            });
-          }, 500);
-        } else {
-          aktuellesRaetsel = 11;
-          setzeFortschritt();
-          document.getElementById("finale").classList.add("show");
-          setTimeout(() => {
-            document.getElementById("finale").scrollIntoView({
-              behavior: "smooth",
-              block: "start"
-            });
-          }, 500);
-        }
-      } else {
-        versuche[nummer]++;
-        feedback.className = "feedback fehler";
-        feedback.textContent = "Leider noch nicht richtig. Versuch es erneut.";
-
-        if (versuche[nummer] >= 2) {
-          hinweis.classList.add("show");
-        }
-      }
-    }
-
-    setzeFortschritt();
+      dateInfo.textContent = "Ausgewählt: " + value;
+    });
   </script>
 </body>
 </html>
