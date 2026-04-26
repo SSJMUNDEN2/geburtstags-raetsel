@@ -4,45 +4,57 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday Nirupa</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg-1: #fff7b8;
-      --bg-2: #ffd6f6;
-      --bg-3: #bff8ff;
-      --bg-4: #caffbf;
-      --surface: rgba(255,255,255,0.74);
-      --surface-2: rgba(255,255,255,0.88);
-      --text: #35123d;
-      --muted: #684d71;
       --pink: #ff4fa3;
+      --pink-dark: #d92f81;
+      --yellow: #ffd93d;
       --orange: #ff9f1c;
-      --yellow: #ffd60a;
-      --green: #34d399;
-      --blue: #4dabff;
+      --blue: #5ac8ff;
+      --green: #52e0a1;
       --purple: #9b5cff;
-      --shadow: 0 20px 60px rgba(124, 48, 137, 0.18);
-      --radius-xl: 32px;
+      --bg-1: #fff4a8;
+      --bg-2: #ffd4f4;
+      --bg-3: #c5f4ff;
+      --bg-4: #d9ffd0;
+      --text: #3b1844;
+      --muted: #6a4f75;
+      --white: rgba(255,255,255,0.88);
+      --card: rgba(255,255,255,0.72);
+      --border: rgba(255,255,255,0.65);
+      --shadow: 0 18px 55px rgba(116, 36, 122, 0.18);
+      --radius-xl: 34px;
       --radius-lg: 24px;
       --radius-md: 18px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       min-height: 100vh;
       font-family: "Nunito", sans-serif;
       color: var(--text);
       overflow-x: hidden;
       background:
-        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.55), transparent 18%),
-        radial-gradient(circle at 85% 15%, rgba(255,255,255,0.4), transparent 16%),
-        radial-gradient(circle at 80% 75%, rgba(255,255,255,0.36), transparent 18%),
+        radial-gradient(circle at 10% 15%, rgba(255,255,255,0.55), transparent 15%),
+        radial-gradient(circle at 85% 20%, rgba(255,255,255,0.45), transparent 18%),
+        radial-gradient(circle at 75% 80%, rgba(255,255,255,0.35), transparent 18%),
         linear-gradient(135deg, var(--bg-1), var(--bg-2), var(--bg-3), var(--bg-4));
-      background-size: 200% 200%;
-      animation: partyBg 16s ease-in-out infinite;
+      background-size: 220% 220%;
+      animation: bgMove 16s ease-in-out infinite;
     }
 
     .page {
@@ -51,102 +63,100 @@
       isolation: isolate;
     }
 
-    .confetti, .balloons, .stickers {
+    .emoji-rain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .emoji-rain span {
+      position: absolute;
+      top: -12vh;
+      font-size: clamp(22px, 4vw, 48px);
+      animation: emojiDrop linear infinite;
+      opacity: 0.95;
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,0.12));
+      user-select: none;
+    }
+
+    .emoji-rain span:nth-child(1)  { left: 2%;  animation-duration: 8s;  animation-delay: -2s; }
+    .emoji-rain span:nth-child(2)  { left: 8%;  animation-duration: 10s; animation-delay: -5s; }
+    .emoji-rain span:nth-child(3)  { left: 14%; animation-duration: 7s;  animation-delay: -1s; }
+    .emoji-rain span:nth-child(4)  { left: 20%; animation-duration: 11s; animation-delay: -3s; }
+    .emoji-rain span:nth-child(5)  { left: 28%; animation-duration: 9s;  animation-delay: -4s; }
+    .emoji-rain span:nth-child(6)  { left: 36%; animation-duration: 12s; animation-delay: -6s; }
+    .emoji-rain span:nth-child(7)  { left: 44%; animation-duration: 8.5s; animation-delay: -2.5s; }
+    .emoji-rain span:nth-child(8)  { left: 52%; animation-duration: 10.5s; animation-delay: -4.5s; }
+    .emoji-rain span:nth-child(9)  { left: 60%; animation-duration: 7.5s; animation-delay: -1.5s; }
+    .emoji-rain span:nth-child(10) { left: 68%; animation-duration: 9.8s; animation-delay: -3.2s; }
+    .emoji-rain span:nth-child(11) { left: 76%; animation-duration: 11.5s; animation-delay: -6.2s; }
+    .emoji-rain span:nth-child(12) { left: 84%; animation-duration: 8.2s; animation-delay: -2.8s; }
+    .emoji-rain span:nth-child(13) { left: 91%; animation-duration: 10.8s; animation-delay: -5.4s; }
+    .emoji-rain span:nth-child(14) { left: 96%; animation-duration: 7.8s; animation-delay: -1.2s; }
+
+    .floaters {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
     }
 
-    .confetti span, .balloons span, .stickers span {
+    .floaters span {
       position: absolute;
       display: block;
+      font-size: clamp(30px, 5vw, 60px);
+      animation: floatParty linear infinite;
     }
 
-    .confetti span {
-      width: 14px;
-      height: 14px;
-      border-radius: 3px;
-      opacity: 0.75;
-      animation: fall linear infinite;
-    }
+    .floaters span:nth-child(1) { left: 4%; bottom: -10%; animation-duration: 18s; animation-delay: -5s; }
+    .floaters span:nth-child(2) { left: 18%; bottom: -15%; animation-duration: 15s; animation-delay: -8s; }
+    .floaters span:nth-child(3) { right: 20%; bottom: -12%; animation-duration: 19s; animation-delay: -4s; }
+    .floaters span:nth-child(4) { right: 5%; bottom: -8%; animation-duration: 16s; animation-delay: -10s; }
 
-    .confetti span:nth-child(1) { left: 6%; background: var(--pink); animation-duration: 10s; animation-delay: -2s; }
-    .confetti span:nth-child(2) { left: 14%; background: var(--orange); animation-duration: 12s; animation-delay: -5s; }
-    .confetti span:nth-child(3) { left: 25%; background: var(--blue); animation-duration: 9s; animation-delay: -3s; }
-    .confetti span:nth-child(4) { left: 33%; background: var(--yellow); animation-duration: 11s; animation-delay: -6s; }
-    .confetti span:nth-child(5) { left: 45%; background: var(--green); animation-duration: 13s; animation-delay: -4s; }
-    .confetti span:nth-child(6) { left: 56%; background: var(--purple); animation-duration: 10s; animation-delay: -7s; }
-    .confetti span:nth-child(7) { left: 68%; background: var(--pink); animation-duration: 12s; animation-delay: -1s; }
-    .confetti span:nth-child(8) { left: 77%; background: var(--orange); animation-duration: 9s; animation-delay: -8s; }
-    .confetti span:nth-child(9) { left: 88%; background: var(--blue); animation-duration: 14s; animation-delay: -3s; }
-    .confetti span:nth-child(10) { left: 95%; background: var(--yellow); animation-duration: 11s; animation-delay: -6s; }
-
-    .balloons span {
-      font-size: clamp(30px, 5vw, 56px);
-      animation: floatUp linear infinite;
-      filter: drop-shadow(0 8px 14px rgba(0,0,0,0.12));
-    }
-
-    .balloons span:nth-child(1) { left: 3%; bottom: -10%; animation-duration: 16s; animation-delay: -6s; }
-    .balloons span:nth-child(2) { left: 18%; bottom: -14%; animation-duration: 19s; animation-delay: -10s; }
-    .balloons span:nth-child(3) { right: 17%; bottom: -12%; animation-duration: 18s; animation-delay: -3s; }
-    .balloons span:nth-child(4) { right: 4%; bottom: -9%; animation-duration: 15s; animation-delay: -8s; }
-
-    .stickers span {
-      font-size: clamp(26px, 3.8vw, 48px);
-      animation: wobble 3.4s ease-in-out infinite;
-      opacity: 0.9;
-    }
-
-    .stickers span:nth-child(1) { top: 90px; left: 6%; }
-    .stickers span:nth-child(2) { top: 170px; right: 8%; animation-delay: .4s; }
-    .stickers span:nth-child(3) { top: 420px; left: 10%; animation-delay: .8s; }
-    .stickers span:nth-child(4) { top: 500px; right: 12%; animation-delay: 1.2s; }
-
-    .hero {
+    .content {
       position: relative;
       z-index: 1;
-      width: min(1120px, calc(100% - 28px));
+      width: min(1150px, calc(100% - 24px));
       margin: 0 auto;
-      padding: 28px 0 28px;
+      padding: 22px 0 26px;
       display: grid;
-      gap: 24px;
+      gap: 22px;
     }
 
-    .top-badge {
+    .badge {
+      width: fit-content;
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      width: fit-content;
       padding: 12px 18px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.9);
-      border: 2px dashed rgba(255,79,163,0.28);
-      color: var(--pink);
-      font-weight: 800;
-      font-size: 15px;
+      background: rgba(255,255,255,0.92);
+      border: 2px dashed rgba(255,79,163,0.25);
       box-shadow: var(--shadow);
-      animation: wiggle 2.6s ease-in-out infinite;
+      color: var(--pink-dark);
+      font-weight: 800;
+      animation: wiggle 2.8s ease-in-out infinite;
     }
 
-    .hero-card, .progress-card, .video-card, .gift-box, .meme-strip {
-      background: var(--surface);
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,0.65);
-      box-shadow: var(--shadow);
     }
 
-    .hero-card {
+    .hero {
+      border-radius: var(--radius-xl);
+      padding: clamp(22px, 4vw, 52px);
       position: relative;
       overflow: hidden;
-      border-radius: var(--radius-xl);
-      padding: clamp(24px, 4vw, 54px);
     }
 
-    .hero-card::before,
-    .hero-card::after {
+    .hero::before,
+    .hero::after {
       content: "";
       position: absolute;
       border-radius: 999px;
@@ -154,30 +164,30 @@
       opacity: 0.7;
     }
 
-    .hero-card::before {
-      width: 220px;
-      height: 220px;
+    .hero::before {
+      width: 260px;
+      height: 260px;
       top: -70px;
-      right: -30px;
-      background: radial-gradient(circle, rgba(255,79,163,0.55), rgba(255,214,102,0.08));
-      animation: orbit 10s ease-in-out infinite;
+      right: -40px;
+      background: radial-gradient(circle, rgba(255,79,163,0.55), rgba(255,217,61,0.06));
+      animation: blobMove 8s ease-in-out infinite;
     }
 
-    .hero-card::after {
-      width: 170px;
-      height: 170px;
-      bottom: -60px;
-      left: -30px;
-      background: radial-gradient(circle, rgba(77,171,255,0.45), rgba(52,211,153,0.06));
-      animation: orbit 12s ease-in-out infinite reverse;
+    .hero::after {
+      width: 190px;
+      height: 190px;
+      bottom: -50px;
+      left: -20px;
+      background: radial-gradient(circle, rgba(90,200,255,0.45), rgba(82,224,161,0.06));
+      animation: blobMove 10s ease-in-out infinite reverse;
     }
 
-    .hero-content {
+    .hero-inner {
       position: relative;
       z-index: 1;
       display: grid;
-      gap: 20px;
-      max-width: 780px;
+      gap: 18px;
+      max-width: 820px;
     }
 
     h1, h2, h3 {
@@ -186,66 +196,65 @@
     }
 
     h1 {
-      font-size: clamp(3rem, 9vw, 6.5rem);
-      color: #4c1248;
+      font-size: clamp(3.2rem, 9vw, 6.8rem);
+      color: #511458;
       text-shadow: 0 4px 0 rgba(255,255,255,0.55);
-      animation: headlineBounce 2.8s ease-in-out infinite;
+      animation: headlineBounce 2.6s ease-in-out infinite;
     }
 
     .subtitle {
-      font-size: clamp(1.05rem, 2.5vw, 1.5rem);
-      line-height: 1.7;
+      font-size: clamp(1.08rem, 2.5vw, 1.5rem);
+      line-height: 1.75;
       color: var(--muted);
-      max-width: 62ch;
+      max-width: 64ch;
     }
 
-    .hero-pills, .meme-strip {
+    .pills {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
     }
 
-    .hero-pills span, .meme-pill {
+    .pills span {
       padding: 11px 16px;
       border-radius: 999px;
       font-weight: 800;
       font-size: 14px;
-      transform-origin: center;
+      animation: pulseMini 2.4s ease-in-out infinite;
     }
 
-    .hero-pills span:nth-child(1), .meme-pill:nth-child(1) { background: #ffe0f0; color: #ab2465; }
-    .hero-pills span:nth-child(2), .meme-pill:nth-child(2) { background: #fff0c2; color: #a56100; }
-    .hero-pills span:nth-child(3), .meme-pill:nth-child(3) { background: #dff7ff; color: #11648d; }
-    .hero-pills span:nth-child(4), .meme-pill:nth-child(4) { background: #dcffe8; color: #11764f; }
+    .pills span:nth-child(1) { background: #ffe3f2; color: #b22568; }
+    .pills span:nth-child(2) { background: #fff2be; color: #9a6400; animation-delay: .2s; }
+    .pills span:nth-child(3) { background: #dff7ff; color: #11648d; animation-delay: .4s; }
+    .pills span:nth-child(4) { background: #dfffe9; color: #11724d; animation-delay: .6s; }
 
-    .hero-pills span { animation: pulseMini 2.4s ease-in-out infinite; }
-    .hero-pills span:nth-child(2) { animation-delay: .2s; }
-    .hero-pills span:nth-child(3) { animation-delay: .4s; }
-    .hero-pills span:nth-child(4) { animation-delay: .6s; }
-
-    .gift-box {
-      display: grid;
-      gap: 16px;
+    .gift-box,
+    .gallery-card,
+    .progress-card,
+    .video-card {
       border-radius: var(--radius-lg);
       padding: 20px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.92));
     }
 
-    .gift-box p, .progress-card p, .video-text p {
+    .gift-box p,
+    .progress-card p,
+    .video-copy p,
+    .gallery-copy p {
       font-size: 16px;
       line-height: 1.75;
-      color: #5c4266;
+      color: #5a4064;
     }
 
     .selector-wrap {
       display: grid;
       gap: 10px;
       max-width: 360px;
+      margin: 4px 0;
     }
 
     label {
       font-weight: 800;
-      color: #6a2d77;
+      color: #6f2f79;
     }
 
     select {
@@ -269,11 +278,15 @@
 
     .date-info {
       min-height: 24px;
-      color: var(--pink);
+      color: var(--pink-dark);
       font-weight: 800;
     }
 
-    .button-row { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
 
     .btn {
       display: inline-flex;
@@ -281,11 +294,13 @@
       justify-content: center;
       min-height: 52px;
       padding: 14px 22px;
+      border: none;
       border-radius: 999px;
       text-decoration: none;
-      font-size: 15px;
       font-weight: 800;
+      font-size: 15px;
       color: white;
+      cursor: pointer;
       background: linear-gradient(135deg, var(--pink), var(--purple), var(--orange));
       background-size: 200% 200%;
       box-shadow: 0 18px 34px rgba(255,79,163,0.28);
@@ -293,26 +308,132 @@
       animation: buttonGlow 5s linear infinite;
     }
 
-    .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 22px 40px rgba(255,79,163,0.33); }
+    .btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 22px 40px rgba(255,79,163,0.33);
+    }
 
     .meme-strip {
-      justify-content: center;
-      padding: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.66);
+      background: rgba(255,255,255,0.68);
+      box-shadow: var(--shadow);
+    }
+
+    .meme-pill {
+      padding: 10px 15px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .meme-pill:nth-child(1) { background: #ffe0f0; color: #ab2465; }
+    .meme-pill:nth-child(2) { background: #fff0c2; color: #a56100; }
+    .meme-pill:nth-child(3) { background: #dff7ff; color: #11648d; }
+    .meme-pill:nth-child(4) { background: #dcffe8; color: #11764f; }
+
+    .gallery-card {
+      display: grid;
+      gap: 18px;
+    }
+
+    .gallery-head h2,
+    .progress-card h2,
+    .video-copy h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: #5a1760;
+    }
+
+    .gallery-stage {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      min-height: 520px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.78), rgba(255,245,251,0.95));
+      border: 1px solid rgba(255,255,255,0.75);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);
+    }
+
+    .gallery-stage img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+    }
+
+    .gallery-copy {
+      max-width: 760px;
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 22px;
+      padding: 16px 18px;
+      box-shadow: 0 16px 35px rgba(92, 36, 98, 0.16);
+    }
+
+    .gallery-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .circle-btn {
+      width: 54px;
+      height: 54px;
+      border-radius: 999px;
+      border: none;
+      font-size: 22px;
+      font-weight: 800;
+      color: white;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      box-shadow: 0 14px 28px rgba(155,92,255,0.26);
+      cursor: pointer;
+      transition: transform .2s ease;
+    }
+
+    .circle-btn:hover {
+      transform: scale(1.07);
+    }
+
+    .gallery-dots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(110, 69, 121, 0.22);
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .dot.active {
+      transform: scale(1.18);
+      background: var(--pink);
     }
 
     .progress-card {
       display: grid;
       gap: 14px;
-      border-radius: var(--radius-xl);
-      padding: 24px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,248,255,0.9));
-    }
-
-    .progress-card h2 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      color: #57175f;
+      background: linear-gradient(180deg, rgba(255,255,255,0.74), rgba(255,248,255,0.92));
     }
 
     .steps {
@@ -355,129 +476,170 @@
     .step:nth-child(9) { animation-delay: .96s; }
     .step:nth-child(10) { animation-delay: 1.08s; }
 
-    .video-section {
-      position: relative;
-      z-index: 1;
-      width: min(1120px, calc(100% - 28px));
-      margin: 0 auto 26px;
+    .video-card {
       display: grid;
-      gap: 14px;
+      gap: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,248,255,0.92));
     }
 
-    .video-card {
+    .video-frame {
       position: relative;
       overflow: hidden;
-      border-radius: 32px;
-      min-height: 330px;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,214,10,0.35), transparent 18%),
-        radial-gradient(circle at 80% 25%, rgba(255,79,163,0.35), transparent 22%),
-        linear-gradient(135deg, #4c166b, #ff4fa3 45%, #ff9f1c 100%);
+      border-radius: 26px;
+      min-height: 520px;
+      background: #1f0820;
+      border: 4px solid rgba(255,255,255,0.72);
+      box-shadow: 0 20px 45px rgba(82, 13, 78, 0.22);
     }
 
-    .video-card video {
-      position: absolute;
-      inset: 0;
+    .video-frame video {
       width: 100%;
-      height: 100%;
+      height: 520px;
       object-fit: cover;
-      opacity: 0.24;
-      mix-blend-mode: screen;
+      display: block;
+      opacity: 1;
+      filter: saturate(1.08) contrast(1.04);
     }
 
-    .video-overlay {
+    .video-badge {
       position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: end;
-      padding: clamp(22px, 4vw, 34px);
-      background: linear-gradient(180deg, rgba(60,0,76,0.05), rgba(31,0,41,0.5) 70%, rgba(18,0,28,0.78));
+      top: 18px;
+      left: 18px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      color: var(--pink-dark);
+      font-weight: 800;
+      box-shadow: 0 10px 24px rgba(61, 16, 59, 0.14);
     }
-
-    .video-text {
-      color: #fff;
-      display: grid;
-      gap: 10px;
-      max-width: 760px;
-    }
-
-    .video-text h3 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      color: white;
-    }
-
-    .video-text p { color: rgba(255,255,255,0.92); }
 
     footer {
       position: relative;
       z-index: 1;
-      width: min(1120px, calc(100% - 28px));
-      margin: 0 auto 26px;
       text-align: center;
       font-weight: 800;
       color: #7e3b78;
-      background: rgba(255,255,255,0.58);
+      background: rgba(255,255,255,0.62);
       padding: 14px 18px;
       border-radius: 999px;
       box-shadow: 0 10px 24px rgba(121, 55, 124, 0.14);
     }
 
-    @keyframes partyBg {
+    @keyframes bgMove {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
     }
-    @keyframes fall {
-      0% { transform: translateY(-10vh) rotate(0deg); }
-      100% { transform: translateY(110vh) rotate(720deg); }
+
+    @keyframes emojiDrop {
+      0% {
+        transform: translateY(-10vh) rotate(0deg) translateX(0);
+      }
+      50% {
+        transform: translateY(50vh) rotate(180deg) translateX(18px);
+      }
+      100% {
+        transform: translateY(115vh) rotate(360deg) translateX(-18px);
+      }
     }
-    @keyframes floatUp {
+
+    @keyframes floatParty {
       0% { transform: translateY(0) rotate(0deg); opacity: 0; }
       12% { opacity: 1; }
-      100% { transform: translateY(-125vh) rotate(7deg); opacity: 0; }
+      100% { transform: translateY(-125vh) rotate(8deg); opacity: 0; }
     }
-    @keyframes wobble {
-      0%, 100% { transform: translateY(0) rotate(-4deg) scale(1); }
-      50% { transform: translateY(-8px) rotate(4deg) scale(1.07); }
-    }
+
     @keyframes wiggle {
       0%, 100% { transform: rotate(-2deg) translateY(0); }
       50% { transform: rotate(2deg) translateY(-3px); }
     }
-    @keyframes orbit {
+
+    @keyframes blobMove {
       0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(16px, 12px) scale(1.08); }
+      50% { transform: translate(18px, 12px) scale(1.08); }
     }
+
     @keyframes headlineBounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-6px); }
     }
+
     @keyframes pulseMini {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.07); }
     }
+
     @keyframes buttonGlow {
       0%,100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
     }
+
     @keyframes stepDance {
       0%, 100% { transform: translateY(0) rotate(0); }
       50% { transform: translateY(-6px) rotate(-1.2deg); }
     }
 
-    @media (max-width: 860px) {
-      .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .video-card { min-height: 280px; }
-      .meme-strip { border-radius: 26px; justify-content: flex-start; }
+    @media (max-width: 920px) {
+      .steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .gallery-stage,
+      .gallery-stage img,
+      .video-frame,
+      .video-frame video {
+        min-height: 360px;
+        height: 360px;
+      }
+
+      .gallery-overlay {
+        position: static;
+        padding: 16px 0 0;
+        display: grid;
+      }
     }
 
     @media (max-width: 560px) {
-      .hero { padding-top: 18px; }
-      .hero-card, .progress-card, .gift-box { padding: 18px; }
-      .top-badge { font-size: 13px; }
-      .stickers span:nth-child(3), .stickers span:nth-child(4) { display: none; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .step { font-size: 13px; padding: 14px 8px; }
-      footer { border-radius: 24px; }
+      .content {
+        width: min(100%, calc(100% - 16px));
+        padding-top: 14px;
+      }
+
+      .hero,
+      .gift-box,
+      .gallery-card,
+      .progress-card,
+      .video-card {
+        padding: 16px;
+      }
+
+      .badge {
+        font-size: 13px;
+      }
+
+      .meme-strip {
+        border-radius: 24px;
+      }
+
+      .gallery-stage,
+      .gallery-stage img,
+      .video-frame,
+      .video-frame video {
+        min-height: 280px;
+        height: 280px;
+      }
+
+      .steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .step {
+        font-size: 13px;
+        padding: 14px 8px;
+      }
+
+      footer {
+        border-radius: 24px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -492,47 +654,56 @@
 </head>
 <body>
   <div class="page">
-    <div class="confetti" aria-hidden="true">
-      <span></span><span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span><span></span>
+
+    <div class="emoji-rain" aria-hidden="true">
+      <span>😂</span>
+      <span>🥳</span>
+      <span>🎉</span>
+      <span>🎂</span>
+      <span>💃</span>
+      <span>✨</span>
+      <span>🎈</span>
+      <span>🪩</span>
+      <span>😎</span>
+      <span>🔥</span>
+      <span>🎊</span>
+      <span>🍰</span>
+      <span>💖</span>
+      <span>🤣</span>
     </div>
 
-    <div class="balloons" aria-hidden="true">
+    <div class="floaters" aria-hidden="true">
       <span>🎈</span>
       <span>🎉</span>
       <span>🎂</span>
       <span>🪩</span>
     </div>
 
-    <div class="stickers" aria-hidden="true">
-      <span>😂</span>
-      <span>✨</span>
-      <span>🥳</span>
-      <span>💃</span>
-    </div>
+    <main class="content">
+      <div class="badge">🎉 Heute dreht sich alles nur um dich, Nirupa 🎉</div>
 
-    <main class="hero">
-      <div class="top-badge">🎉 Heute ist Party-Modus aktiviert 🎉</div>
-
-      <section class="hero-card">
-        <div class="hero-content">
+      <section class="hero card">
+        <div class="hero-inner">
           <h1>Happy Birthday Nirupa</h1>
 
           <p class="subtitle">
-            Jetzt ist die Seite extra <strong>bunt</strong>, verspielt und mit bewegenden Figuren.
-            Alles soll sich wie eine fröhliche Geburtstags-Überraschung anfühlen — lustig, lebendig und ein bisschen meme-mässig.
+            Diese Seite ist nur für dich gemacht: extra bunt, extra verspielt, extra lebendig
+            und mit genau der verrückten Geburtstags-Energie, die zu dir passt.
+            Sie soll sich anfühlen wie eine kleine Überraschungsshow nur für dich —
+            lustig, liebevoll und ein bisschen meme-mässig.
           </p>
 
-          <div class="hero-pills" aria-label="Geburtstags-Stimmung">
-            <span>🎊 Voll bunt</span>
-            <span>😂 Meme Energie</span>
-            <span>💃 Bewegende Figuren</span>
-            <span>🎂 Birthday Vibes</span>
+          <div class="pills" aria-hidden="true">
+            <span>🎊 Birthday Queen</span>
+            <span>😂 Meme-Modus an</span>
+            <span>💃 Party überall</span>
+            <span>🎂 Nur für Nirupa</span>
           </div>
 
-          <div class="gift-box">
+          <div class="gift-box card">
             <p>
-              Unser Geschenk ist abhängig von einem speziellen Tag. Unten kannst du ein Datum auswählen und die Geburtstagsreise startet mit maximalem Fun-Faktor.
+              Nirupa, unser Geschenk hängt von einem besonderen Tag ab.
+              Unten kannst du dein Datum auswählen und damit beginnt deine ganz persönliche Geburtstagsreise.
             </p>
 
             <div class="selector-wrap">
@@ -547,31 +718,59 @@
             </div>
 
             <p>
-              Ausserdem machen wir 10 Rätsel. Wenn du sie löst, erfährst du an diesem besonderen Tag, was das Geschenk ist.
+              Dazu gibt es 10 Rätsel. Wenn du sie alle löst, erfährst du an deinem ausgewählten besonderen Tag,
+              was genau dein Geschenk ist.
             </p>
 
-            <div class="button-row">
-              <a href="#raetsel-info" class="btn">Zu den 10 Rätseln 🚀</a>
+            <div class="btn-row">
+              <a class="btn" href="#bildergalerie">Zu deinen Bildern 📸</a>
+              <a class="btn" href="#raetsel-info">Zu den 10 Rätseln 🚀</a>
             </div>
           </div>
 
           <div class="meme-strip" aria-hidden="true">
-            <span class="meme-pill">"Level Birthday unlocked"</span>
             <span class="meme-pill">"Main character energy"</span>
-            <span class="meme-pill">"Cake incoming"</span>
             <span class="meme-pill">"Too glam to be calm"</span>
+            <span class="meme-pill">"Birthday level unlocked"</span>
+            <span class="meme-pill">"Nirupa mode: iconic"</span>
           </div>
         </div>
       </section>
 
-      <section class="progress-card" id="raetsel-info">
-        <h2>Die 10 Rätsel</h2>
+      <section class="gallery-card card" id="bildergalerie">
+        <div class="gallery-head">
+          <h2>Deine Bilder-Momente</h2>
+        </div>
+
+        <div class="gallery-stage">
+          <img id="galleryImage" src="./Bilder/1.jpeg" alt="Erinnerungsbild für Nirupa" />
+
+          <div class="gallery-overlay">
+            <div class="gallery-copy">
+              <p id="galleryCaption">
+                Eine kleine Bilderreise nur für dich, Nirupa — fröhlich, persönlich und immer weiter zum nächsten Moment.
+              </p>
+            </div>
+
+            <div class="gallery-controls">
+              <button class="circle-btn" id="prevBtn" aria-label="Vorheriges Bild">‹</button>
+              <button class="circle-btn" id="nextBtn" aria-label="Nächstes Bild">›</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-dots" id="galleryDots"></div>
+      </section>
+
+      <section class="progress-card card" id="raetsel-info">
+        <h2>Die 10 Rätsel für dich</h2>
         <p>
-          Hier beginnt die neue Geburtstagsreise mit insgesamt 10 Rätseln, die Schritt für Schritt zur Überraschung führen.
+          Nirupa, hier startet deine neue Geburtstagsreise mit 10 Rätseln, die dich Stück für Stück näher an die Überraschung bringen.
         </p>
         <p>
-          Erst wenn alle 10 Rätsel gelöst sind, erfährst du am ausgewählten besonderen Tag, welches Geschenk auf dich wartet.
+          Erst wenn alle 10 Rätsel gelöst sind, wartet am ausgewählten Tag die Auflösung auf dich.
         </p>
+
         <div class="steps">
           <div class="step">Rätsel 1</div>
           <div class="step">Rätsel 2</div>
@@ -585,43 +784,119 @@
           <div class="step">Rätsel 10</div>
         </div>
       </section>
-    </main>
 
-    <section class="video-section">
-      <div class="video-card">
-        <video autoplay muted loop playsinline>
-          <source src="./video.mp4" type="video/mp4">
-          Dein Browser unterstützt dieses Video nicht.
-        </video>
-        <div class="video-overlay">
-          <div class="video-text">
-            <h3>Ein besonderer Moment</h3>
-            <p>
-              Die farbige Bühne, die bewegten Emojis und das schwebende Party-Feeling machen den unteren Bereich jetzt viel lebendiger und lustiger.
-            </p>
-          </div>
+      <section class="video-card card">
+        <div class="video-copy">
+          <h2>Dein besonderer Video-Moment</h2>
+          <p>
+            Unten läuft dein Video jetzt viel klarer und grösser, damit man es richtig erkennt.
+            Es bleibt in Schleife und ist als echter Hingucker für dich gedacht.
+          </p>
         </div>
-      </div>
-    </section>
 
-    <footer>
-      Happy Birthday Nirupa · Das Geschenk bleibt bis zum besonderen Tag geheim · aber die Party hat schon angefangen 🎁
-    </footer>
+        <div class="video-frame">
+          <div class="video-badge">🎬 Für Nirupa</div>
+          <video autoplay muted loop playsinline>
+            <source src="./video.mp4" type="video/mp4">
+            Dein Browser unterstützt dieses Video nicht.
+          </video>
+        </div>
+      </section>
+
+      <footer>
+        Happy Birthday Nirupa · Diese Seite ist dir gewidmet · bunt, laut, lustig und voller Überraschungen 🎁
+      </footer>
+    </main>
   </div>
 
   <script>
     const datumSelect = document.getElementById("datumSelect");
     const dateInfo = document.getElementById("dateInfo");
+
     const messages = {
-      "7. Juni": "Ausgewählt: 7. Juni ✨ Klingt nach einem sehr verdächtig coolen Tag.",
-      "21. Juni": "Ausgewählt: 21. Juni 🎉 Dieser Tag hat ganz starke Überraschungs-Vibes.",
-      "5. Juli": "Ausgewählt: 5. Juli 🥳 Meme-Level steigt. Geschenk-Geheimnis bleibt aktiv."
+      "7. Juni": "Ausgewählt: 7. Juni ✨ Ein Datum mit sehr verdächtig coolen Überraschungs-Vibes.",
+      "21. Juni": "Ausgewählt: 21. Juni 🎉 Das fühlt sich nach einem ganz besonderen Nirupa-Moment an.",
+      "5. Juli": "Ausgewählt: 5. Juli 🥳 Birthday-Meme-Level steigt. Das Geschenk bleibt noch geheim."
     };
 
     datumSelect.addEventListener("change", function () {
       const value = this.value;
       dateInfo.textContent = value ? messages[value] : "";
     });
+
+    const images = [
+      { src: "./Bilder/1.jpeg", caption: "Ein schöner Moment aus deiner ganz persönlichen Geburtstags-Galerie, Nirupa." },
+      { src: "./Bilder/2.jpeg", caption: "Noch ein Bild, das diese Seite ein bisschen mehr nach dir aussehen lässt." },
+      { src: "./Bilder/3.jpeg", caption: "Ein weiterer fröhlicher Moment, der perfekt in deine Geburtstagsreise passt." },
+      { src: "./Bilder/4.jpeg", caption: "Diese kleine Galerie geht immer weiter — genau wie die gute Stimmung heute." },
+      { src: "./Bilder/5.jpeg", caption: "Ein Bild für die extra Portion Freude, die heute nur dir gehört." },
+      { src: "./Bilder/6.jpeg", caption: "Mehr Erinnerungen, mehr Vibes, mehr Nirupa-Energie." },
+      { src: "./Bilder/7.jpeg", caption: "Diese Bilder sind wie kleine Stationen auf deiner Überraschungsreise." },
+      { src: "./Bilder/8.jpeg", caption: "Noch ein besonderer Moment für eine besonders besondere Person." },
+      { src: "./Bilder/9.jpeg", caption: "Die Galerie läuft weiter — klick dich einfach durch deine bunten Momente." },
+      { src: "./Bilder/10.jpeg", caption: "Ein weiteres Kapitel dieser lustigen, lebendigen Geburtstagsseite für dich." }
+    ];
+
+    const galleryImage = document.getElementById("galleryImage");
+    const galleryCaption = document.getElementById("galleryCaption");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const galleryDots = document.getElementById("galleryDots");
+
+    let currentIndex = 0;
+    let autoSlide;
+
+    function renderDots() {
+      galleryDots.innerHTML = "";
+      images.forEach((_, index) => {
+        const dot = document.createElement("span");
+        dot.className = "dot" + (index === currentIndex ? " active" : "");
+        dot.addEventListener("click", () => {
+          currentIndex = index;
+          updateGallery();
+          resetAutoSlide();
+        });
+        galleryDots.appendChild(dot);
+      });
+    }
+
+    function updateGallery() {
+      galleryImage.src = images[currentIndex].src;
+      galleryCaption.textContent = images[currentIndex].caption;
+      renderDots();
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateGallery();
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updateGallery();
+    }
+
+    function startAutoSlide() {
+      autoSlide = setInterval(nextImage, 3500);
+    }
+
+    function resetAutoSlide() {
+      clearInterval(autoSlide);
+      startAutoSlide();
+    }
+
+    nextBtn.addEventListener("click", () => {
+      nextImage();
+      resetAutoSlide();
+    });
+
+    prevBtn.addEventListener("click", () => {
+      prevImage();
+      resetAutoSlide();
+    });
+
+    updateGallery();
+    startAutoSlide();
   </script>
 </body>
 </html>
